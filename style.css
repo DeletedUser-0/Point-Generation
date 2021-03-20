@@ -1,0 +1,39 @@
+@font-face {
+    src: url("MonospaceTypewriter.ttf");
+    font-family: a;
+}
+
+#points {
+    font-size: 250%;
+    text-align: center;
+    font-family: a;
+    color: white;
+}
+
+#PPS {
+    font-family: a;
+    color: white;
+    margin-top: -1.25cm;
+    text-align: center;
+}
+
+.upgrade {
+    font-family: a;
+    color: white;
+}
+
+#buy {
+    font-family: a;
+    background-color: white;
+    border: black;
+    border-radius: 15%;
+}
+
+#buy:hover {
+    font-family: a;
+    background-color: lime;
+    border: limegreen;
+    animation: 200ms;
+    border-radius: 25%;
+    font-size: 110%;
+}

@@ -1,0 +1,2 @@
+# Idle-Number-Racing
+IT IS UNDER CONSTRUCTION

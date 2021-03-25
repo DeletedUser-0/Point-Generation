@@ -27,13 +27,14 @@
     background-color: white;
     border: black;
     border-radius: 15%;
+    transition: 250ms;
 }
 
 #buy:hover {
     font-family: a;
     background-color: lime;
     border: limegreen;
-    animation: 200ms;
-    border-radius: 25%;
-    font-size: 110%;
+    border-radius: 15%;
+    transform: scale(1.35);
+    transition: 250ms;
 }

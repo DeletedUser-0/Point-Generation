@@ -1,2 +1,3 @@
-# Idle-Number-Racing
+# Point Generation
 IT IS UNDER CONSTRUCTION
+

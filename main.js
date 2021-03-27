@@ -55,6 +55,18 @@ function notate3(n) {
     return `${m.toFixed(2)}x10<sup>${e}</sup>`
 }
 
+function Save() {
+        saveData = game;
+        localStorage.saveData = JSON.stringify(saveData);
+}
+
+function Load() {
+    var saveData = JSON.parse(localStorage.saveData || null) || {};
+    game = saveData;
+    console.log("Save loaded");
+    return saveData.obj || "default";
+}
+
 var mainGameLoop = window.setInterval(function () {
     ui();
 }, 1);

@@ -11,31 +11,48 @@ var game = {
         cost: 100,
         level: 0
     },
+    Ppoints: {
+        total: 0,
+        earn: 0,
+    }
 };
 
 function addPoints() {
     game.points.total = Decimal.add(game.points.perTick, game.points.total);
 };
 
+function addPPoints() {
+    if (Decimal.compare(game.points.total, 1e9) >= 0) {
+
+    }
+}
+
 function ui() {
     document.getElementById("points").innerHTML = `You have ${notate(game.points.total)} points.`;
-    document.getElementById("PPS").innerHTML = `You are earning ${notate(Decimal.times(game.points.perTick, 100))} points per second.`;
-    document.getElementById("upgrade1").innerHTML = `Cost: ${notate(game.upgrade1.cost)} (${notate3(Decimal.divide(game.upgrade1.cost, Decimal.times(game.points.perTick, 100)))}s) <br> Level: ${notate2(game.upgrade1.level)}`;
-    document.getElementById("upgrade2").innerHTML = `Cost: ${notate(game.upgrade2.cost)} (${notate3(Decimal.divide(game.upgrade2.cost, Decimal.times(game.points.perTick, 100)))}s) <br> Level: ${notate2(game.upgrade2.level)}`;
+    document.getElementById("PPS").innerHTML = `You are earning ${notate3(Decimal.times(game.points.perTick, 100))} points per second.`;
+    document.getElementById("upgrade1").innerHTML = `Cost: ${notate(game.upgrade1.cost)} (${notate2(Decimal.divide(game.upgrade1.cost, Decimal.times(game.points.perTick, 100)))}s) <br> Level: ${game.upgrade1.level}`;
+    document.getElementById("upgrade2").innerHTML = `Cost: ${notate(game.upgrade2.cost)} (${notate2(Decimal.divide(game.upgrade2.cost, Decimal.times(game.points.perTick, 100)))}s) <br> Level: ${game.upgrade2.level}`;
 };
 
-function notate(n) {
-    var e = n.exponent;
-    if (e < 3) return (n.mantissa * Math.pow(10, e)).toPrecision(3);
-    return `${n.mantissa.toPrecision(3)}e${e.toLocaleString("pt-BR")}`;
+function notate(n = 0) {
+    n = new Decimal(n);
+    let e = n.exponent;
+    let m = n.mantissa.toFixed(e);
+
+    if (e < 9) { return (m * 10 ** e).toLocaleString('pt-BR'); }
+    return `${m.toPrecision(3)}x10<sup>${e}</sup>`;
 }
 
 function notate2(n) {
-    return (n.mantissa * Math.pow(10, n.exponent)).toFixed(0);
+    return (n.mantissa * Math.pow(10, n.exponent)).toFixed(1);
 }
 
 function notate3(n) {
-    return (n.mantissa * Math.pow(10, n.exponent)).toFixed(1);
+    n = new Decimal(n);
+    let e = n.exponent;
+    let m = n.mantissa
+    if (e < 3) return (Math.pow(10, e) * m).toPrecision(3);
+    return `${m.toFixed(2)}x10<sup>${e}</sup>`
 }
 
 var mainGameLoop = window.setInterval(function () {

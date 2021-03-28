@@ -37,7 +37,7 @@ function ui() {
 function notate(n = 0) {
     n = new Decimal(n);
     let e = n.exponent;
-    let m = n.mantissa.toFixed(e);
+    let m = n.mantissa.toFixed(e >= 0 ? e : 0);
 
     if (e < 9) { return (m * 10 ** e).toLocaleString('pt-BR'); }
     return `${m.toPrecision(3)}x10<sup>${e}</sup>`;

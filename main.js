@@ -35,7 +35,7 @@ function ui() {
 };
 
 function notate(n = 0) {
-    n = new Decimal(n);
+    if (!(n instanceof Decimal)) n = new Decimal(n);
     let e = n.exponent;
     let m = n.mantissa.toFixed(e >= 0 ? e : 0);
 

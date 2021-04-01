@@ -11,32 +11,39 @@
 
 
 <body bgcolor="black">
+    <p id="Ppoints"></p>
+    <button id="Ppointsreset" onclick="addPPoints()"></button>
     <p id="points">You have 0 points.</p>
     <br>
     <p id="PPS">You are earning 1.00 points per second.</p>
     <br>
-    <br>
-    <strong style="color: white; font-family: a;">Receive 5% more points per second.</strong>
-    <p id="upgrade1" class="upgrade">Cost: 10.0 (10.0s)<br> Level: 0</p>
-    <button id="buy" onclick="upgrade1()">Buy</button>
-    <br>
+    <button class="tablink" onclick="openPage('Home', this, 'grey')" id="defaultOpen">Points</button>
+    <button class="tablink" onclick="openPage('Statistics', this, 'grey')">Statistics</button>
+    <button class="tablink" onclick="openPage('Prestige Points', this, 'lightgrey')">Prestige Points</button>
     <br>
     <br>
-    <strong style="color: white; font-family: a;">Reduce tickspeed by 25%.</strong>
-    <p id="upgrade2" class="upgrade">Cost: 100<br> Level: 0</p>
-    <button id="buy" onclick="upgrade2()">Buy</button>
-    <br>
-    <br>
-    <br>
-    <br>
-    <strong style="color: white; font-family: a;">Save and load your game.</strong>
-    <br>
-    <br style="font-size: smaller;">
-    <button onclick="Save()" id="buy">Save</button>
-    <button onclick="Load()" id="buy">Load</button>
-    <br>
-    <br>
-    <br>
+    <div id="Home" class="tabcontent">
+        <strong style="color: white; font-family: a;">Receive 10% more points per second.</strong>
+        <p id="upgrade1" class="upgrade">Cost: 10.0 (10.0s)<br> Level: 0</p>
+        <button id="buy" onclick="upgrade1()">Buy</button>
+        <br>
+        <br>
+        <strong style="color: white; font-family: a;">Reduce tickspeed by 25%.</strong>
+        <p id="upgrade2" class="upgrade">Cost: 100<br> Level: 0</p>
+        <button id="buy" onclick="upgrade2()">Buy</button>
+    </div>
+    <div id="Statistics" class="tabcontent">
+        <p id="time"></p>
+        <br>
+        <strong style="color: white; font-family: a;">Save and load your game.</strong>
+        <br>
+        <br style="font-size: smaller;">
+        <button onclick="Save()" id="buy">Save</button>
+        <button onclick="Load()" id="buy">Load</button>
+    </div>
+    <div id="Prestige Points" class="tabcontent">
+        <button id="upgrade3" class="buy" onclick="upgrade3()"></button>
+    </div>
 </body>
 
 </html>

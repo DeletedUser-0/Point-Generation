@@ -70,7 +70,7 @@ function ui() {
     } else {
         document.getElementById("upgrade3").innerHTML = `???`;
     };
-    game.PrestigeUpgrade1.effectiveness = Decimal.pow(game.time, 0.1).pow(game.PrestigeUpgrade1.level.div(2).add(1));
+    game.PrestigeUpgrade1.effectiveness = Decimal.pow(game.time, 0.1).pow(game.PrestigeUpgrade1.level);
     document.getElementById("time").innerHTML = `Total time played: ${notate(game.time)} seconds.`
 };
 

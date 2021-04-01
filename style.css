@@ -38,3 +38,70 @@
     transform: scale(1.35);
     transition: 250ms;
 }
+
+/* Set height of body and the document to 100% to enable "full page tabs" */
+body,
+html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial;
+}
+
+/* Style tab links */
+.tablink {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 33.3333333333333%;
+    font-family: a;
+}
+
+.tablink:hover {
+    background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+    color: white;
+    display: none;
+    padding: 100px 20px;
+    height: 100%;
+}
+
+#Ppoints {
+    color: darkgray;
+    font-family: a;
+    text-align: right;
+    font-size: 80%;
+}
+
+#Ppointsreset {
+    color: white;
+    font-family: a;
+    background-color: grey;
+    float: right;
+    font-size: 80%;
+}
+
+.buy {
+    font-family: a;
+    background-color: white;
+    border: black;
+    transition: 250ms;
+}
+
+.buy:hover {
+    font-family: a;
+    background-color: lime;
+    border: limegreen;
+    transition: 250ms;
+}
+
+#time {
+    font-family: a;
+}

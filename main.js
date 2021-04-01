@@ -2,7 +2,7 @@ var game = {
     time: 0,
     points: {
         total: 0,
-        perTick: 0.01,
+        perTick: 0.02,
         upgradebonus: 1,
     },
     upgrade1: {
@@ -28,7 +28,7 @@ var game = {
 function addPoints() {
     game.points.total = Decimal.add(game.points.perTick, game.points.total);
     game.Ppoints.earn = Decimal.pow(1.1, Decimal.log10(game.points.total)).div(2.35794769)
-    game.points.perTick = Decimal.times(0.01, game.PrestigeUpgrade1.effectiveness).times(game.points.upgradebonus);
+    game.points.perTick = Decimal.times(0.02, game.PrestigeUpgrade1.effectiveness).times(game.points.upgradebonus);
     game.time = Decimal.add(0.01, game.time);
 };
 
@@ -36,7 +36,7 @@ function addPPoints() {
     if (Decimal.compare(game.points.total, 1e9) >= 0) {
         game.Ppoints.total = Decimal.add(game.Ppoints.earn, game.Ppoints.total);
         game.points.total = 0;
-        game.points.perTick = Decimal.times(game.PrestigeUpgrade1.effectiveness, 0.01);
+        game.points.perTick = Decimal.times(game.PrestigeUpgrade1.effectiveness, 0.02);
         game.upgrade1.cost = new Decimal("10");
         game.upgrade1.level = new Decimal("0");
         game.upgrade2.cost = new Decimal("100");
@@ -50,9 +50,9 @@ function addPPoints() {
 
 function ui() {
     document.getElementById("points").innerHTML = `You have ${notate(game.points.total)} points.`;
-    document.getElementById("PPS").innerHTML = `You are earning ${notate3(Decimal.times(game.points.perTick, 100))} points per second.`;
-    document.getElementById("upgrade1").innerHTML = `Cost: ${notate(game.upgrade1.cost)} (${notate2(Decimal.divide(game.upgrade1.cost, Decimal.times(game.points.perTick, 100)))}s) <br> Level: ${game.upgrade1.level}`;
-    document.getElementById("upgrade2").innerHTML = `Cost: ${notate(game.upgrade2.cost)} (${notate2(Decimal.divide(game.upgrade2.cost, Decimal.times(game.points.perTick, 100)))}s) <br> Level: ${game.upgrade2.level}`;
+    document.getElementById("PPS").innerHTML = `You are earning ${notate3(Decimal.times(game.points.perTick, 50))} points per second.`;
+    document.getElementById("upgrade1").innerHTML = `Cost: ${notate(game.upgrade1.cost)} (${notate2(Decimal.divide(game.upgrade1.cost, Decimal.times(game.points.perTick, 50)))}s) <br> Level: ${game.upgrade1.level}`;
+    document.getElementById("upgrade2").innerHTML = `Cost: ${notate(game.upgrade2.cost)} (${notate2(Decimal.divide(game.upgrade2.cost, Decimal.times(game.points.perTick, 50)))}s) <br> Level: ${game.upgrade2.level}`;
     if ((Decimal.compare(game.Ppoints.reset, 0) > 0) || (Decimal.compare(game.points.total, 1e9) >= 0)) {
         document.getElementById("Ppoints").innerHTML = `You have <strong>${notate(game.Ppoints.total)}</strong> Prestige Points.`;
     } else {
@@ -117,7 +117,7 @@ var mainGameLoop = window.setInterval(function () {
 
 var mainGameLoop = window.setInterval(function () {
     addPoints();
-}, 10);
+}, 20);
 
 function openPage(pageName, elmnt, color) {
     // Hide all elements with class="tabcontent" by default */

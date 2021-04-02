@@ -88,7 +88,7 @@ function notate(n = 0) {
 };
 
 function notate2(n) {
-    return (n.mantissa * Math.pow(10, n.exponent)).toFixed(1);
+    return (n.mantissa * Math.pow(10, n.exponent)).toFixed(2);
 };
 
 function notate3(n) {

@@ -1,3 +1,3 @@
 # Point Generation
-IT IS UNDER CONSTRUCTION
+This page is under construction.
 

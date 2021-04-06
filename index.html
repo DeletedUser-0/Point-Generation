@@ -17,12 +17,14 @@
     <br>
     <p id="PPS">You are earning 1.00 points per second.</p>
     <br>
-    <button class="tablink" onclick="openPage('Home', this, 'grey')" id="defaultOpen">Points</button>
+    <button class="tablink" onclick="openPage('Home', this, 'grey')">Points</button>
     <button class="tablink" onclick="openPage('Statistics', this, 'grey')">Statistics</button>
     <button class="tablink" onclick="openPage('Prestige Points', this, 'lightgrey')">Prestige Points</button>
     <br>
     <br>
     <div id="Home" class="tabcontent">
+        <button id="buyMax" onclick="upgradeMax()">Buy Max</button>
+        <br>
         <strong style="color: white; font-family: a;">Receive 10% more points per second.</strong>
         <p id="upgrade1" class="upgrade">Cost: 10.0 (10.0s)<br> Level: 0</p>
         <button id="buy" onclick="upgrade1()">Buy</button>
@@ -35,14 +37,22 @@
     <div id="Statistics" class="tabcontent">
         <p id="time"></p>
         <br>
+        <p id="total"></p>
+        <br>
         <strong style="color: white; font-family: a;">Save and load your game.</strong>
         <br>
-        <br style="font-size: smaller;">
+        <br>
         <button onclick="Save()" id="buy">Save</button>
         <button onclick="Load()" id="buy">Load</button>
     </div>
     <div id="Prestige Points" class="tabcontent">
-        <button id="upgrade3" class="buy" onclick="upgrade3()"></button>
+        <button id="upgrade3" class="PpointsUp" onclick="upgrade3()"></button>
+        <br>
+        <br>
+        <button id="upgrade4" class="PpointsUp" onclick="upgrade4()"></button>
+        <br>
+        <br>
+        <button id="upgrade5" class="PpointsUp" onclick="upgrade5()"></button>
     </div>
 </body>
 

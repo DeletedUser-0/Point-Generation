@@ -17,9 +17,20 @@ var game = {
         total: 0,
         earn: 0,
         reset: 0,
+        time: 0,
     },
     PrestigeUpgrade1: {
         cost: 1,
+        level: 0,
+        effectiveness: 1,
+    },
+    PrestigeUpgrade2: {
+        cost: 5,
+        level: 0,
+        effectiveness: 1,
+    },
+    PrestigeUpgrade3: {
+        cost: 3,
         level: 0,
         effectiveness: 1,
     },
@@ -27,22 +38,24 @@ var game = {
 
 function addPoints() {
     game.points.total = Decimal.add(game.points.perTick, game.points.total);
-    game.Ppoints.earn = Decimal.pow(1.1, Decimal.log10(game.points.total)).div(2.35794769)
-    game.points.perTick = Decimal.times(0.02, game.PrestigeUpgrade1.effectiveness).times(game.points.upgradebonus);
+    game.Ppoints.earn = Decimal.pow(1.15, Decimal.log10(game.points.total)).div(3.517876291919921875)
+    game.points.perTick = Decimal.times(0.02, game.PrestigeUpgrade1.effectiveness).times(game.points.upgradebonus).times(game.PrestigeUpgrade2.effectiveness).times(game.PrestigeUpgrade3.effectiveness);
     game.time = Decimal.add(0.02, game.time);
+    game.Ppoints.time = Decimal.add(0.02, game.Ppoints.time);
 };
 
 function addPPoints() {
     if (Decimal.compare(game.points.total, 1e9) >= 0) {
         game.Ppoints.total = Decimal.add(game.Ppoints.earn, game.Ppoints.total);
         game.points.total = 0;
-        game.points.perTick = Decimal.times(game.PrestigeUpgrade1.effectiveness, 0.02);
+        game.points.perTick = Decimal.times(game.PrestigeUpgrade1.effectiveness, 0.02).times(game.PrestigeUpgrade2.effectiveness).times(game.PrestigeUpgrade3.effectiveness);
         game.upgrade1.cost = new Decimal("10");
         game.upgrade1.level = new Decimal("0");
         game.upgrade2.cost = new Decimal("100");
         game.upgrade2.level = new Decimal("0");
         game.points.upgradebonus = new Decimal("1");
         game.Ppoints.reset += 1;
+        game.Ppoints.time = 0;
     } else {
         alert("You can't prestige now!");
     };
@@ -66,12 +79,18 @@ function ui() {
     };
 
     if (Decimal.compare(game.Ppoints.reset, 1) >= 0) {
-        document.getElementById("upgrade3").innerHTML = `Increase points multiplier income based on total time played. <br> Effect: ${game.PrestigeUpgrade1.effectiveness.toPrecision(4)}x <br> Cost: ${notate(game.PrestigeUpgrade1.cost)} Prestige Points.`;
+        document.getElementById("upgrade3").innerHTML = `Increase points multiplier income based on time played. <br> <br> ${notate4(game.PrestigeUpgrade1.effectiveness)} times more <br> Cost: ${notate(game.PrestigeUpgrade1.cost)} Prestige Points.`;
+        document.getElementById("upgrade4").innerHTML = `Increase points multiplier income based on time played during this prestige. <br> <br> ${notate4(game.PrestigeUpgrade2.effectiveness)} times more <br> Cost: ${notate(game.PrestigeUpgrade2.cost)} Prestige Points.`;
+        document.getElementById("upgrade5").innerHTML = `Earn 2.2x more points. <br> <br> ${notate4(game.PrestigeUpgrade3.effectiveness)} times more <br> Cost: ${notate(game.PrestigeUpgrade3.cost)} Prestige Points.`;
     } else {
         document.getElementById("upgrade3").innerHTML = `???`;
+        document.getElementById("upgrade4").innerHTML = `???`;
+        document.getElementById("upgrade5").innerHTML = `???`;
     };
     game.PrestigeUpgrade1.effectiveness = Decimal.pow(game.time, 0.1).pow(game.PrestigeUpgrade1.level);
-    document.getElementById("time").innerHTML = `Total time played: ${notate(game.time)} seconds.`
+    game.PrestigeUpgrade2.effectiveness = Decimal.pow(game.Ppoints.time, 0.125).pow(game.PrestigeUpgrade2.level);
+    document.getElementById("time").innerHTML = `Total time played: ${notate(game.time)} seconds.`;
+    document.getElementById("total").innerHTML = `Total points income: ${notate(Decimal.times(game.PrestigeUpgrade1.effectiveness, game.PrestigeUpgrade2.effectiveness).times(game.PrestigeUpgrade3.effectiveness))}x`
 };
 
 function notate(n = 0) {
@@ -82,7 +101,7 @@ function notate(n = 0) {
     let m = n.mantissa;
 
     if (e < 9) {
-        return (m.toFixed(e >= 0 ? e : 0) * 10 ** e).toLocaleString('pt-BR');
+        return (m.toFixed(e >= 0 ? e : 1) * 10 ** e).toLocaleString('pt-BR');
     };
     return `${m.toPrecision(3)}x10<sup>${e}</sup>`;
 };
@@ -96,6 +115,14 @@ function notate3(n) {
     let e = n.exponent;
     let m = n.mantissa;
     if (e < 3) return (Math.pow(10, e) * m).toPrecision(3);
+    return `${m.toFixed(2)}x10<sup>${e}</sup>`;
+};
+
+function notate4(n) {
+    n = new Decimal(n);
+    let e = n.exponent;
+    let m = n.mantissa;
+    if (e < 3) return (Math.pow(10, e) * m).toPrecision(4);
     return `${m.toFixed(2)}x10<sup>${e}</sup>`;
 };
 
@@ -139,6 +166,3 @@ function openPage(pageName, elmnt, color) {
     // Add the specific color to the button used to open the tab content
     elmnt.style.backgroundColor = color;
 }
-
-// Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();

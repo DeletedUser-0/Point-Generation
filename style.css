@@ -105,3 +105,38 @@ html {
 #time {
     font-family: a;
 }
+
+.PpointsUp {
+    color: black;
+    background: #F7F7F7;
+    font-weight: bold;
+    font-size: 10px;
+    border: 1px solid #ED85DF;
+    width: 190px;
+    height: 90px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: a;
+}
+
+.PpointsUp:hover {
+    color: #000;
+    background: white;
+}
+
+#Ppoints2 {
+    color: darkgray;
+    font-family: a;
+    text-align: center;
+    font-size: 80%;
+}
+
+#total {
+    font-family: a;
+}
+
+#buyMax {
+    font-family: a;
+    float: center;
+}

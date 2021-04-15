@@ -38,7 +38,7 @@ var game = {
 
 function addPoints() {
     game.points.total = Decimal.add(game.points.perTick, game.points.total);
-    game.Ppoints.earn = Decimal.pow(1.15, Decimal.log10(game.points.total)).div(3.517876291919921875)
+    game.Ppoints.earn =  Decimal.pow(10, game.points.total.exponent/9 - 0.7)
     game.points.perTick = Decimal.times(0.02, game.PrestigeUpgrade1.effectiveness).times(game.points.upgradebonus).times(game.PrestigeUpgrade2.effectiveness).times(game.PrestigeUpgrade3.effectiveness);
     game.time = Decimal.add(0.02, game.time);
     game.Ppoints.time = Decimal.add(0.02, game.Ppoints.time);

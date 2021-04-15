@@ -38,7 +38,7 @@ function upgrade3() {
 function upgrade4() {
     while (Decimal.compare(game.Ppoints.total, game.PrestigeUpgrade2.cost) >= 0) {
         game.Ppoints.total = Decimal.sub(game.Ppoints.total, game.PrestigeUpgrade2.cost);
-        game.PrestigeUpgrade2.cost = Decimal.times(game.PrestigeUpgrade2.cost, 2.5)
+        game.PrestigeUpgrade2.cost = Decimal.times(game.PrestigeUpgrade2.cost, 3.5)
         game.PrestigeUpgrade2.level = Decimal.add(game.PrestigeUpgrade2.level, 1);
     };
 };

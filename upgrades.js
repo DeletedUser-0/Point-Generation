@@ -30,7 +30,7 @@ var mainGameLoop = window.setInterval(function () {
 function upgrade3() {
     while (Decimal.compare(game.Ppoints.total, game.PrestigeUpgrade1.cost) >= 0) {
         game.Ppoints.total = Decimal.sub(game.Ppoints.total, game.PrestigeUpgrade1.cost);
-        game.PrestigeUpgrade1.cost = Decimal.pow(game.PrestigeUpgrade1.cost, 1.1).add(1);
+        game.PrestigeUpgrade1.cost = Decimal.times(game.PrestigeUpgrade1.cost, 5);
         game.PrestigeUpgrade1.level = Decimal.add(game.PrestigeUpgrade1.level, 1);
     };
 };
@@ -38,7 +38,7 @@ function upgrade3() {
 function upgrade4() {
     while (Decimal.compare(game.Ppoints.total, game.PrestigeUpgrade2.cost) >= 0) {
         game.Ppoints.total = Decimal.sub(game.Ppoints.total, game.PrestigeUpgrade2.cost);
-        game.PrestigeUpgrade2.cost = Decimal.pow(game.PrestigeUpgrade2.cost, 1.15).add(0.5);
+        game.PrestigeUpgrade2.cost = Decimal.times(game.PrestigeUpgrade2.cost, 2.5)
         game.PrestigeUpgrade2.level = Decimal.add(game.PrestigeUpgrade2.level, 1);
     };
 };
@@ -51,7 +51,7 @@ game.Ppoints.total = new Decimal("any value you want")
 function upgrade5() {
     while (Decimal.compare(game.Ppoints.total, game.PrestigeUpgrade3.cost) >= 0) {
         game.Ppoints.total = Decimal.sub(game.Ppoints.total, game.PrestigeUpgrade3.cost);
-        game.PrestigeUpgrade3.cost = Decimal.pow(game.PrestigeUpgrade3.cost, 1.13);
+        game.PrestigeUpgrade3.cost = Decimal.times(game.PrestigeUpgrade3.cost, 4);
         game.PrestigeUpgrade3.level = Decimal.add(game.PrestigeUpgrade3.level, 1);
         game.PrestigeUpgrade3.effectiveness = Decimal.times(game.PrestigeUpgrade3.effectiveness, 2.2);
     };

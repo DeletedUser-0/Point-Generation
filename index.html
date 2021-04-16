@@ -4,6 +4,7 @@
 <head>
     <title>Point Generation</title>
     <script src="break_infinity.js"></script>
+    <script src="keymaster.js"></script>
     <script src="main.js"></script>
     <script src="upgrades.js"></script>
     <link rel="stylesheet" href="style.css">
@@ -25,9 +26,10 @@
     <div id="Home" class="tabcontent">
         <button id="buyMax" onclick="upgradeMax()">Buy Max</button>
         <br>
-        <strong style="color: white; font-family: a;">Receive 10% more points per second.</strong>
+        <br>
+        <strong style="color: white; font-family: a;" id="increase1">Receive 10% more points per second.</strong>
         <p id="upgrade1" class="upgrade">Cost: 10.0 (10.0s)<br> Level: 0</p>
-        <button id="buy" onclick="upgrade1()">Buy</button>
+        <button id="buy1" onclick="upgrade1()">Buy</button>
         <br>
         <br>
         <strong style="color: white; font-family: a;">Reduce tickspeed by 25%.</strong>
@@ -36,8 +38,8 @@
     </div>
     <div id="Statistics" class="tabcontent">
         <p id="time"></p>
-        <br>
         <p id="total"></p>
+        <p id="max"></p>
         <br>
         <strong style="color: white; font-family: a;">Save and load your game.</strong>
         <br>
@@ -53,6 +55,12 @@
         <br>
         <br>
         <button id="upgrade5" class="PpointsUp" onclick="upgrade5()"></button>
+        <br>
+        <br>
+        <button id="upgrade6" class="PpointsUp" onclick="upgrade6()"></button>
+        <br>
+        <br>
+        <button id="upgrade7" class="PpointsUp" onclick="upgrade7()"></button>
     </div>
 </body>
 

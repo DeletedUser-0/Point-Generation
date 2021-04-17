@@ -74,7 +74,28 @@ function upgrade7() {
     while (Decimal.compare(game.Ppoints.total, game.PrestigeUpgrade5.cost) >= 0) {
         game.Ppoints.total = Decimal.sub(game.Ppoints.total, game.PrestigeUpgrade5.cost);
         game.PrestigeUpgrade5.level = Decimal.add(game.PrestigeUpgrade5.level, 1);
-        game.PrestigeUpgrade5.cost = Decimal.pow(game.PrestigeUpgrade5.cost, 1.05).times(3);
-        game.upgrade1.increase2 = Decimal.pow(game.upgrade1.increase2, 1.1);
+        game.PrestigeUpgrade5.cost = Decimal.pow(game.PrestigeUpgrade5.cost, 1.15).times(3);
+        game.upgrade1.increase2 = Decimal.pow(game.upgrade1.increase2, 1.075);
     };
 };
+
+function upgrade8() {
+    while (Decimal.compare(game.Ppoints.total, game.PrestigeUpgrade6.cost) >= 0) {
+        game.Ppoints.total = Decimal.sub(game.Ppoints.total, game.PrestigeUpgrade6.cost);
+        game.PrestigeUpgrade6.level = Decimal.add(game.PrestigeUpgrade6.level, 1);
+        game.PrestigeUpgrade6.cost = Decimal.times(game.PrestigeUpgrade6.cost, 3.16227766016838);
+        game.Ppoints.generatortick = Decimal.pow(1.5, game.PrestigeUpgrade6.level);
+    };
+};
+
+function upgrade9() {
+    while (Decimal.compare(game.Ppoints.total, game.PrestigeUpgrade7.cost) >= 0) {
+        game.Ppoints.total = Decimal.sub(game.Ppoints.total, game.PrestigeUpgrade7.cost);
+        game.PrestigeUpgrade7.level = Decimal.add(game.PrestigeUpgrade7.level, 1);
+        game.PrestigeUpgrade7.cost = Decimal.pow(1.75, game.PrestigeUpgrade7.level).times(500);
+    };
+};
+
+/*
+16.865
+*/

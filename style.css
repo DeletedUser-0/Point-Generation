@@ -52,7 +52,9 @@
     transition: 250ms;
 }
 
+
 /* Set height of body and the document to 100% to enable "full page tabs" */
+
 body,
 html {
     height: 100%;
@@ -60,7 +62,9 @@ html {
     font-family: Arial;
 }
 
+
 /* Style tab links */
+
 .tablink {
     background-color: #555;
     color: white;
@@ -70,7 +74,7 @@ html {
     cursor: pointer;
     padding: 14px 16px;
     font-size: 17px;
-    width: 33.3333333333333%;
+    width: 33.333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333%;
     font-family: a;
 }
 
@@ -78,7 +82,9 @@ html {
     background-color: #777;
 }
 
+
 /* Style the tab content (and add height:100% for full page content) */
+
 .tabcontent {
     color: white;
     display: none;
@@ -156,4 +162,22 @@ html {
 
 #max {
     font-family: a;
+}
+
+#upgrade6 {
+    position: relative;
+    bottom: 8.55cm;
+    left: 5.5cm;
+}
+
+#upgrade7 {
+    position: relative;
+    bottom: 8.55cm;
+    left: 5.5cm;
+}
+
+#upgrade9 {
+    position: relative;
+    bottom: 8.55cm;
+    left: 5.5cm;
 }

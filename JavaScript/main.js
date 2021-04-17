@@ -150,7 +150,7 @@ function ui() {
     };
 
     if ((Decimal.compare(game.Ppoints.total, 250) >= 0) || (Decimal.compare(game.PrestigeUpgrade7.level, 1) >= 0)) {
-        document.getElementById("upgrade9").innerHTML = `You earn more Prestige Points automatically based on your current points. <br> <br> Effectiveness: ${notate(Decimal.times(game.PrestigeUpgrade7.effectiveness, 50))} pp/s<br> Cost: ${notate(game.PrestigeUpgrade7.cost)} Prestige Points.`;
+        document.getElementById("upgrade9").innerHTML = `You earn more Prestige Points automatically based on your current points. <br> <br> Cost: ${notate(game.PrestigeUpgrade7.cost)} Prestige Points.`;
     } else {
         document.getElementById("upgrade9").innerHTML = `??? <br> <br> Unlocked at 500 Prestige Points.`;
     }

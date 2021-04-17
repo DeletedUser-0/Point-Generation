@@ -12,8 +12,8 @@ class Game {
         this.upgrade1 = {
             cost: data?.upgrade1?.cost || 7.77,
             level: data?.upgrade1?.level || 0,
-            increase: data?.upgrade1.increase || 1.1,
-            increase2: data?.upgrade1.increase2 || 1.1,
+            increase: data?.upgrade1?.increase || 1.1,
+            increase2: data?.upgrade1?.increase2 || 1.1,
         };
 
         this.upgrade2 = {
@@ -25,37 +25,52 @@ class Game {
             total: data?.Ppoints?.total || 0,
             earn: data?.Ppoints?.earn || 0,
             reset: data?.Ppoints?.reset || 0,
-            time: data?.Ppoints?.time || 0
+            time: data?.Ppoints?.time || 0,
+            max: data?.Ppoints?.max || 0,
+            generatorpoints: data?.Ppoints?.generatorpoints || 0,
+            generatormultiplier: data?.Ppoints?.generatormultiplier || 0,
+            generatortick: data?.Ppoints?.generatortick || 0.02,
         };
 
         this.PrestigeUpgrade1 = {
             cost: data?.PrestigeUpgrade1?.cost || 1,
             level: data?.PrestigeUpgrade1?.level || 0,
-            effectiveness: data?.PrestigeUpgrade1.effectiveness || 1
+            effectiveness: data?.PrestigeUpgrade1?.effectiveness || 1
         };
 
         this.PrestigeUpgrade2 = {
-            cost: data?.PrestigeUpgrade2?.cost || 5,
+            cost: data?.PrestigeUpgrade2?.cost || 4.5,
             level: data?.PrestigeUpgrade2?.level || 0,
-            effectiveness: data?.PrestigeUpgrade2.effectiveness || 1
+            effectiveness: data?.PrestigeUpgrade2?.effectiveness || 1
         };
 
         this.PrestigeUpgrade3 = {
-            cost: data?.PrestigeUpgrade3?.cost || 3,
+            cost: data?.PrestigeUpgrade3?.cost || 2.5,
             level: data?.PrestigeUpgrade3?.level || 0,
-            effectiveness: data?.PrestigeUpgrade3.effectiveness || 1
+            effectiveness: data?.PrestigeUpgrade3?.effectiveness || 1
         };
 
         this.PrestigeUpgrade4 = {
             cost: data?.PrestigeUpgrade4?.cost || 1,
             level: data?.PrestigeUpgrade4?.level || 0,
-            effectiveness: data?.PrestigeUpgrade4.effectiveness || 1
+            effectiveness: data?.PrestigeUpgrade4?.effectiveness || 1
         };
 
         this.PrestigeUpgrade5 = {
-            cost: data?.PrestigeUpgrade5?.cost || 2,
+            cost: data?.PrestigeUpgrade5?.cost || 1.5,
             level: data?.PrestigeUpgrade5?.level || 0,
-            effectiveness: data?.PrestigeUpgrade4.effectiveness || 1
+            effectiveness: data?.PrestigeUpgrade5?.effectiveness || 1
+        };
+
+        this.PrestigeUpgrade6 = {
+            cost: data?.PrestigeUpgrade6?.cost || 316228,
+            level: data?.PrestigeUpgrade6?.level || 0,
+        };
+
+        this.PrestigeUpgrade7 = {
+            cost: data?.PrestigeUpgrade7?.cost || 500,
+            level: data?.PrestigeUpgrade7?.level || 0,
+            effectiveness: data?.PrestigeUpgrade7?.effectiveness || 0,
         };
     }
 }
@@ -67,6 +82,8 @@ function addPoints() {
     game.points.perTick = Decimal.times(0.02, game.PrestigeUpgrade1.effectiveness).times(game.points.upgradebonus).times(game.PrestigeUpgrade2.effectiveness).times(game.PrestigeUpgrade3.effectiveness).times(game.PrestigeUpgrade4.effectiveness);
     game.time = Decimal.add(0.02, game.time);
     game.Ppoints.time = Decimal.add(0.02, game.Ppoints.time);
+    game.PrestigeUpgrade7.effectiveness = (Decimal.times(game.Ppoints.earn, Decimal.divide(game.PrestigeUpgrade7.level, 250)).pow(Decimal.add(Decimal.times(0.01, game.PrestigeUpgrade7.level), 1)));
+    game.Ppoints.total = Decimal.add(game.Ppoints.total, game.PrestigeUpgrade7.effectiveness)
 };
 
 function addPPoints() {
@@ -89,7 +106,7 @@ function addPPoints() {
 
 function ui() {
     document.getElementById("points").innerHTML = `You have ${notate(game.points.total)} points.`;
-    document.getElementById("PPS").innerHTML = `You are earning ${notate3(Decimal.times(game.points.perTick, 50))} points per second.`;
+    document.getElementById("PPS").innerHTML = `You are earning ${notate(Decimal.times(game.points.perTick, 50))} points per second (+${(Decimal.divide(game.points.perTick.times(50), game.points.total).times(100)).toPrecision(3)}%/s).`;
     if (Decimal.compare(game.PrestigeUpgrade5.level, 0) == -1) {
         document.getElementById("increase1").innerHTML = `Receive 10% more points.`
     } else if ((Decimal.compare(game.upgrade1.increase2, 1.1) >= 0) && Decimal.compare(game.upgrade1.increase2, 2) == -1) {
@@ -112,12 +129,14 @@ function ui() {
 
     if (Decimal.compare(game.points.total, 1e9) < 0) {
         document.getElementById("Ppointsreset").innerHTML = `${(Decimal.divide(Decimal.log10(game.points.total), 9).times(100)).toFixed(2)}% completed.`;
-    } else {
+    } else if (Decimal.compare(game.PrestigeUpgrade7.level, 0) == 0) {
         document.getElementById("Ppointsreset").innerHTML = `Prestige to gain ${notate(game.Ppoints.earn)} Prestige Points.`;
+    } else {
+        document.getElementById("Ppointsreset").innerHTML = `You are earning ${notate(Decimal.times(game.PrestigeUpgrade7.effectiveness, 50))} Prestige Points per second.`
     };
 
     if (Decimal.compare(game.Ppoints.reset, 1) >= 0) {
-        document.getElementById("upgrade3").innerHTML = `Increase points multiplier income based on time played. <br> <br> ${notate4(game.PrestigeUpgrade1.effectiveness)} times more <br> Cost: ${notate(game.PrestigeUpgrade1.cost)} Prestige Points.`;
+        document.getElementById("upgrade3").innerHTML = `Increase points multiplier income based on time played. <br> <br> ${notate4(game.PrestigeUpgrade1.effectiveness)} times more <br> Cost: ${notate3(game.PrestigeUpgrade1.cost)} Prestige Points.`;
         document.getElementById("upgrade4").innerHTML = `Increase points multiplier income based on time played during this prestige. <br> <br> ${notate4(game.PrestigeUpgrade2.effectiveness)} times more <br> Cost: ${notate(game.PrestigeUpgrade2.cost)} Prestige Points.`;
         document.getElementById("upgrade5").innerHTML = `Earn 3x more points. <br> <br> ${notate4(game.PrestigeUpgrade3.effectiveness)} times more <br> Cost: ${notate(game.PrestigeUpgrade3.cost)} Prestige Points.`;
         document.getElementById("upgrade6").innerHTML = `You earn more points based on your max points amount. <br> <br> ${notate4(game.PrestigeUpgrade4.effectiveness)} times more <br> Cost: ${notate(game.PrestigeUpgrade4.cost)} Prestige Points.`;
@@ -129,6 +148,13 @@ function ui() {
         document.getElementById("upgrade6").innerHTML = `???`;
         document.getElementById("upgrade7").innerHTML = `???`;
     };
+
+    if ((Decimal.compare(game.Ppoints.total, 250) >= 0) || (Decimal.compare(game.PrestigeUpgrade7.level, 1) >= 0)) {
+        document.getElementById("upgrade9").innerHTML = `You earn more Prestige Points automatically based on your current points. <br> <br> Effectiveness: ${notate(Decimal.times(game.PrestigeUpgrade7.effectiveness, 50))} pp/s<br> Cost: ${notate(game.PrestigeUpgrade7.cost)} Prestige Points.`;
+    } else {
+        document.getElementById("upgrade9").innerHTML = `??? <br> <br> Unlocked at 500 Prestige Points.`;
+    }
+
     document.getElementById("time").innerHTML = `Total time played: ${notate(game.time)} seconds.`;
     document.getElementById("total").innerHTML = `Total points income: ${notate(Decimal.times(game.PrestigeUpgrade1.effectiveness, game.PrestigeUpgrade2.effectiveness).times(game.PrestigeUpgrade3.effectiveness).times(game.PrestigeUpgrade4.effectiveness))}x`;
     document.getElementById("max").innerHTML = `Maximum points reached: ${notate(game.points.max)}`
@@ -178,30 +204,36 @@ function Load() {
     return saveData.obj || "default";
 };
 
-var mainGameLoop = window.setInterval(function () {
+var mainGameLoop = window.setInterval(function() {
     ui();
 }, 1);
 
-var mainGameLoop = window.setInterval(function () {
+var mainGameLoop = window.setInterval(function() {
     addPoints();
 }, 20);
 
-var mainGameLoop = window.setInterval(function () {
+var mainGameLoop = window.setInterval(function() {
     if (Decimal.compare(game.points.total, game.points.max) >= 0) {
         game.points.max = game.points.total;
     };
 }, 1);
 
+var mainGameLoop = window.setInterval(function() {
+    if (Decimal.compare(game.Ppoints.total, game.Ppoints.max) >= 0) {
+        game.Ppoints.max = game.Ppoints.total;
+    };
+}, 1);
+
 function recalculate() {
-    if (Decimal.compare(game.points.total, 1e9) >= 0) {
-        game.PrestigeUpgrade1.effectiveness = Decimal.pow(game.time, 0.2).pow(game.PrestigeUpgrade1.level);
-        game.PrestigeUpgrade2.effectiveness = Decimal.pow(game.Ppoints.time.add(1), 0.4).pow(game.PrestigeUpgrade2.level);
-        game.PrestigeUpgrade4.effectiveness =  Decimal.pow(10, Decimal.log10(game.points.max)/16 - 0.7).times(1.3725);
-        game.Ppoints.earn = Decimal.pow(10, game.points.total.exponent/27 - 0.7).times(2.3263);
+    game.PrestigeUpgrade1.effectiveness = Decimal.pow(game.time, 0.15).pow(game.PrestigeUpgrade1.level);
+    game.PrestigeUpgrade2.effectiveness = Decimal.pow(Decimal.add(game.Ppoints.time, 1), 0.4).pow(game.PrestigeUpgrade2.level);
+    if (Decimal.compare(game.points.total, 1e9) >= 0 || (Decimal.compare(game.Ppoints.reset, 0) == 1)) {
+        game.PrestigeUpgrade4.effectiveness = (Decimal.pow(10, Decimal.log10(game.points.max) / 80 - 0.7).times(1.3725).add(1)).pow(Decimal.add(game.PrestigeUpgrade4.level, 1));
+        game.Ppoints.earn = Decimal.pow(10, Decimal.log10(game.points.total) / 27 - 0.7).times(2.3263).times(Decimal.add(game.Ppoints.generatormultiplier, 1.0001));
     }
 }
 
-var mainGameLoop = window.setInterval(function () {
+var mainGameLoop = window.setInterval(function() {
     recalculate();
 }, 1);
 
@@ -226,18 +258,20 @@ function openPage(pageName, elmnt, color) {
     elmnt.style.backgroundColor = color;
 }
 
-key('p', function(){     if (Decimal.compare(game.points.total, 1e9) >= 0) {
-    game.Ppoints.total = Decimal.add(game.Ppoints.earn, game.Ppoints.total);
-    game.points.total = 0;
-    game.points.perTick = Decimal.times(game.PrestigeUpgrade1.effectiveness, 0.02).times(game.PrestigeUpgrade2.effectiveness).times(game.PrestigeUpgrade3.effectiveness).times(game.PrestigeUpgrade4.effectiveness);
-    game.upgrade1.cost = new Decimal("10");
-    game.upgrade1.level = new Decimal("0");
-    game.upgrade2.cost = new Decimal("100");
-    game.upgrade2.level = new Decimal("0");
-    game.points.upgradebonus = new Decimal("1");
-    game.Ppoints.reset += 1;
-    game.Ppoints.time = 0;
-    game.upgrade1.increase = 1.1;
-} else {
-    alert("You can't prestige now!");
-};});
+key('p', function() {
+    if (Decimal.compare(game.points.total, 1e9) >= 0) {
+        game.Ppoints.total = Decimal.add(game.Ppoints.earn, game.Ppoints.total);
+        game.points.total = 0;
+        game.points.perTick = Decimal.times(game.PrestigeUpgrade1.effectiveness, 0.02).times(game.PrestigeUpgrade2.effectiveness).times(game.PrestigeUpgrade3.effectiveness).times(game.PrestigeUpgrade4.effectiveness);
+        game.upgrade1.cost = new Decimal("10");
+        game.upgrade1.level = new Decimal("0");
+        game.upgrade2.cost = new Decimal("100");
+        game.upgrade2.level = new Decimal("0");
+        game.points.upgradebonus = new Decimal("1");
+        game.Ppoints.reset += 1;
+        game.Ppoints.time = 0;
+        game.upgrade1.increase = 1.1;
+    } else {
+        alert("You can't prestige now!");
+    };
+});

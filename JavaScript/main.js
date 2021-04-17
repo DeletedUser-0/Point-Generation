@@ -137,7 +137,7 @@ function ui() {
 
     if (Decimal.compare(game.Ppoints.reset, 1) >= 0) {
         document.getElementById("upgrade3").innerHTML = `Increase points multiplier income based on time played. <br> <br> ${notate4(game.PrestigeUpgrade1.effectiveness)} times more <br> Cost: ${notate3(game.PrestigeUpgrade1.cost)} Prestige Points.`;
-        if (Decimal.compare(game.PrestigeUpgrade2.cost, 1e9) >= 0) {
+        if (Decimal.compare(game.PrestigeUpgrade2.cost, 1e9) == -1) {
             document.getElementById("upgrade4").innerHTML = `Increase points multiplier income based on time played during this prestige. <br> <br> ${notate4(game.PrestigeUpgrade2.effectiveness)} times more <br> Cost: ${notate(game.PrestigeUpgrade2.cost)} Prestige Points.`;
         } else {
             document.getElementById("upgrade4").innerHTML = `Increase points multiplier income based on time played during this prestige. <br> <br> ${notate4(game.PrestigeUpgrade2.effectiveness)} times more <br> Cost: ${notate(game.PrestigeUpgrade2.cost)} PP.`;

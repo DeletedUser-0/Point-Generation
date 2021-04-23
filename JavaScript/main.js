@@ -206,3 +206,74 @@ key('p', function() {
         alert("You can't prestige now!");
     };
 });
+
+function ui() {
+    document.getElementById("points").innerHTML = `You have ${notate(game.points.total)} points.`;
+    document.getElementById("PPS").innerHTML = `You are earning ${notate(OmegaNum.times(game.points.perTick, 50))} points per second.`;
+    if (OmegaNum.compare(game.PrestigeUpgrade5.level, 0) == -1) {
+        document.getElementById("increase1").innerHTML = `Receive 10% more points.`
+    } else if ((OmegaNum.compare(game.upgrade1.increase2, 1.1) >= 0) && OmegaNum.compare(game.upgrade1.increase2, 2) == -1) {
+        document.getElementById("increase1").innerHTML = `Receive ${OmegaNum.sub(game.upgrade1.increase2, 1).times(100).toFixed(2)}% more points.`
+    } else {
+        document.getElementById("increase1").innerHTML = `Receive ${notate(game.upgrade1.increase2)} times more points.`
+    }
+    document.getElementById("upgrade1").innerHTML = `Cost: ${notate(game.upgrade1.cost)} (${notate(OmegaNum.divide(game.upgrade1.cost, OmegaNum.times(game.points.perTick, 50)))}s) <br> Level: ${game.upgrade1.level}`;
+    if (OmegaNum.compare(game.upgrade1.increase, 2) <= 0) {
+        document.getElementById("buy1").innerHTML = `Buy (+${(OmegaNum.sub(game.upgrade1.increase, 1).times(100).toFixed(2))}%)`;
+    } else {
+        document.getElementById("buy1").innerHTML = `Buy (x${notate(game.upgrade1.increase)})`;
+    }
+
+    if (OmegaNum.compare(game.upgrade2.level, 100) <= 0) {
+        document.getElementById("buy2").innerHTML = `Buy`;
+    } else {
+        document.getElementById("buy2").innerHTML = `Buy (x${notate(OmegaNum.divide(OmegaNum.pow(game.upgrade2.cost, 1.015), game.upgrade2.cost))})`;
+    }
+
+    document.getElementById("upgrade2").innerHTML = `Cost: ${notate(game.upgrade2.cost)} (${notate(OmegaNum.divide(game.upgrade2.cost, OmegaNum.times(game.points.perTick, 50)))}s) <br> Level: ${game.upgrade2.level}`;
+    if ((OmegaNum.compare(game.Ppoints.reset, 0) > 0) || (OmegaNum.compare(game.points.total, 1e9) >= 0)) {
+        document.getElementById("Ppoints").innerHTML = `You have <strong>${notate(game.Ppoints.total)}</strong> Prestige Points.`;
+    } else {
+        document.getElementById("Ppoints").innerHTML = `This space will be unlocked when you have 1.000.000.000 Points.`;
+    };
+
+    if (OmegaNum.compare(game.points.total, 1e9) < 0) {
+        document.getElementById("Ppointsreset").innerHTML = `${(OmegaNum.divide(OmegaNum.log10(game.points.total), 9).times(100)).toFixed(2)}% completed.`;
+    } else if (OmegaNum.compare(game.PrestigeUpgrade7.level, 0) == 0) {
+        document.getElementById("Ppointsreset").innerHTML = `Prestige to gain ${notate(game.Ppoints.earn)} Prestige Points.`;
+    } else {
+        document.getElementById("Ppointsreset").innerHTML = `You are earning ${notate(OmegaNum.times(game.PrestigeUpgrade7.effectiveness, 50))} Prestige Points per second.`
+    };
+
+    if (OmegaNum.compare(game.Ppoints.reset, 1) >= 0) {
+        document.getElementById("upgrade3").innerHTML = `Increase points multiplier income based on time played. <br> <br> ${notate(game.PrestigeUpgrade1.effectiveness)} times more <br> Cost: ${notate(game.PrestigeUpgrade1.cost)} Prestige Points.`;
+        if (OmegaNum.compare(game.PrestigeUpgrade2.cost, 1e6) == -1) {
+            document.getElementById("upgrade4").innerHTML = `Increase points multiplier income based on time played during this prestige. <br> <br> ${notate(game.PrestigeUpgrade2.effectiveness)} times more <br> Cost: ${notate(game.PrestigeUpgrade2.cost)} Prestige Points.`;
+        } else {
+            document.getElementById("upgrade4").innerHTML = `Increase points multiplier income based on time played during this prestige. <br> <br> ${notate(game.PrestigeUpgrade2.effectiveness)} times more <br> Cost: ${notate(game.PrestigeUpgrade2.cost)} PP.`;
+        }
+        document.getElementById("upgrade5").innerHTML = `Earn 10x more points. <br> <br> ${notate(game.PrestigeUpgrade3.effectiveness)} times more <br> Cost: ${notate(game.PrestigeUpgrade3.cost)} Prestige Points.`;
+        document.getElementById("upgrade6").innerHTML = `You earn more points based on your max points amount. <br> <br> ${notate(game.PrestigeUpgrade4.effectiveness)} times more <br> Cost: ${notate(game.PrestigeUpgrade4.cost)} Prestige Points.`;
+        document.getElementById("upgrade7").innerHTML = `First points upgrade is stronger. <br> <br> Cost: ${notate(game.PrestigeUpgrade5.cost)} Prestige Points.`;
+    } else {
+        document.getElementById("upgrade3").innerHTML = `???`;
+        document.getElementById("upgrade4").innerHTML = `???`;
+        document.getElementById("upgrade5").innerHTML = `???`;
+        document.getElementById("upgrade6").innerHTML = `???`;
+        document.getElementById("upgrade7").innerHTML = `???`;
+    };
+
+    if ((OmegaNum.compare(game.Ppoints.total, 1000) >= 0) || (OmegaNum.compare(game.PrestigeUpgrade7.level, 1) >= 0)) {
+        document.getElementById("upgrade9").innerHTML = `You earn more Prestige Points automatically based on your current points. <br> <br>  Cost: ${notate(game.PrestigeUpgrade7.cost)} Prestige Points.`;
+    } else {
+        document.getElementById("upgrade9").innerHTML = `??? <br> <br> Unlocked at 10.000 Prestige Points and viewable at 1.000 Prestige Points.`;
+    }
+
+    document.getElementById("time").innerHTML = `Total time played: ${(game.time).toFixed(0)} seconds.`;
+    document.getElementById("total").innerHTML = `Total points income: ${notate(OmegaNum.times(game.PrestigeUpgrade1.effectiveness, game.PrestigeUpgrade2.effectiveness).times(game.PrestigeUpgrade3.effectiveness).times(game.PrestigeUpgrade4.effectiveness))}x`;
+    document.getElementById("max").innerHTML = `Maximum points reached: ${notate(game.points.max)}`
+};
+
+var mainGameLoop = window.setInterval(function () {
+    ui();
+}, 1);

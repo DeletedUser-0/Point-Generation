@@ -110,16 +110,19 @@ function notate(n = new OmegaNum(0)) {
     if (!isFinite(n.array[0])) { return Infinity; }
 
     let s = "";
-    if (!n.array[1]) { 
-        return n.array[0].toPrecision(3); 
+    if (!n.array[1]) {
+        let e = Math.floor(Math.log10(n.array[0]));
+        let m = n.array[0] / 10 ** e;
+        return e < 3 ? n.toPrecision(3) : `${m.toPrecision(3)}e${e}`;
     }
-    else if (OmegaNum.compare(game.points.max, 1000) >= 0) { 
+    else if (n.array[1] < 2) { 
         return `${Math.pow(10, n.array[0] - Math.floor(n.array[0])).toPrecision(3)}e${Math.floor(n.array[0])}`;
     }
     else {
         return `${"e".repeat(n.array[1])}${Math.floor(n.array[0])}`;
     }
 }
+
 
 function Save() {
     saveData = game;

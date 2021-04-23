@@ -181,3 +181,18 @@ html {
     bottom: 8.55cm;
     left: 5.5cm;
 }
+
+#buy2 {
+    font-family: a;
+    background-color: white;
+    border: black;
+    transition: 250ms;
+}
+
+#buy2:hover {
+    font-family: a;
+    background-color: lime;
+    border: limegreen;
+    border-radius: 15%;
+    transition: 250ms;
+}

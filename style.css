@@ -4,8 +4,9 @@
 }
 
 #points {
-    font-size: 250%;
+    font-size: 200%;
     text-align: center;
+    position: relative;
     font-family: a;
     color: white;
 }
@@ -13,6 +14,7 @@
 #PPS {
     font-family: a;
     color: white;
+    font-size: 80%;
     margin-top: -1.25cm;
     text-align: center;
 }
@@ -74,7 +76,7 @@ html {
     cursor: pointer;
     padding: 14px 16px;
     font-size: 17px;
-    width: 33.333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333%;
+    width: 25%;
     font-family: a;
 }
 
@@ -196,3 +198,25 @@ html {
     border-radius: 15%;
     transition: 250ms;
 }
+
+#gup1 {
+    text-align: center;
+    float: center;
+    position: relative;
+}
+
+.gbuy {
+    font-family: a;
+    background-color: white;
+    border: black;
+    tab-size: 250px;
+    transition: 250ms;
+}
+
+.gbuy:hover {
+    font-family: a;
+    background-color: rgb(34, 132, 165);
+    border: rgb(34, 132, 225);
+    size: 300px;
+    transition: 250ms;
+};

@@ -80,35 +80,26 @@ function upgrade5() {
     };
 };
 
-function upgrade6() {
-    while (OmegaNum.compare(game.Ppoints.total, game.PrestigeUpgrade4.cost) >= 0) {
-        game.Ppoints.total = OmegaNum.sub(game.Ppoints.total, game.PrestigeUpgrade4.cost);
-        game.PrestigeUpgrade4.level = OmegaNum.add(game.PrestigeUpgrade4.level, 1);
-        if (OmegaNum.compare(game.points.max, 1e210) >= 0) {
-            game.PrestigeUpgrade4.cost = OmegaNum.pow(game.PrestigeUpgrade4.cost, 1.5);
-        } else {
-            game.PrestigeUpgrade4.cost = OmegaNum.times(game.PrestigeUpgrade4.cost, OmegaNum.times(game.PrestigeUpgrade4.level, 3).pow(1.05, game.PrestigeUpgrade1.cost));
-        }
-    };
-};
-
 function upgrade7() {
     if (OmegaNum.compare(game.points.total, 1.8e308) >= 0) {
-        game.PrestigeUpgrade5.cost = "MAX"
+        game.PrestigeUpgrade4.cost = "MAX"
     } else {
-        while (OmegaNum.compare(game.Ppoints.total, game.PrestigeUpgrade5.cost) >= 0) {
-            game.Ppoints.total = OmegaNum.sub(game.Ppoints.total, game.PrestigeUpgrade5.cost);
-            game.PrestigeUpgrade5.level = OmegaNum.add(game.PrestigeUpgrade5.level, 1);
-            game.PrestigeUpgrade5.cost = OmegaNum.pow(game.PrestigeUpgrade5.cost, 1.2).times(3).pow(1.04, game.PrestigeUpgrade1.cost);
+        while (OmegaNum.compare(game.Ppoints.total, game.PrestigeUpgrade4.cost) >= 0) {
+            game.Ppoints.total = OmegaNum.sub(game.Ppoints.total, game.PrestigeUpgrade4.cost);
+            game.PrestigeUpgrade4.level = OmegaNum.add(game.PrestigeUpgrade4.level, 1);
+            game.PrestigeUpgrade4.cost = OmegaNum.pow(game.PrestigeUpgrade4.cost, 1.2).times(3).pow(1.04, game.PrestigeUpgrade1.cost);
             game.upgrade1.increase2 = OmegaNum.pow(game.upgrade1.increase2, 1.075);
+            if (Decimal.cmp(game.upgrade1.increase2, 1.25) >= 0) {
+                game.upgrade1.increase2 = OmegaNum.pow(game.upgrade1.increase2, 1.075);
+            }
         }
     };
 };
 
 function upgrade9() {
-    while (OmegaNum.compare(game.Ppoints.total, game.PrestigeUpgrade7.cost) >= 0) {
-        game.Ppoints.total = OmegaNum.sub(game.Ppoints.total, game.PrestigeUpgrade7.cost);
-        game.PrestigeUpgrade7.level = OmegaNum.add(game.PrestigeUpgrade7.level, 1);
-        game.PrestigeUpgrade7.cost = OmegaNum.pow(1.625, game.PrestigeUpgrade7.level).times(10000).pow(1.07, game.PrestigeUpgrade1.cost);
+    while (OmegaNum.compare(game.Ppoints.total, game.PrestigeUpgrade5.cost) >= 0) {
+        game.Ppoints.total = OmegaNum.sub(game.Ppoints.total, game.PrestigeUpgrade5.cost);
+        game.PrestigeUpgrade5.level = OmegaNum.add(game.PrestigeUpgrade5.level, 1);
+        game.PrestigeUpgrade5.cost = OmegaNum.pow(1.625, game.PrestigeUpgrade5.level).times(10000).pow(1.07, game.PrestigeUpgrade1.cost);
     }
 };

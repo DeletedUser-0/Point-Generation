@@ -1,50 +1,53 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <title>Point Generation</title>
-    <script src="JavaScript/break_infinity.js"></script>
+    <script src="node_modules/omega_num.js/OmegaNum.js"></script>
     <script src="JavaScript/dev.js"></script>
     <script src="JavaScript/main.js"></script>
     <script src="JavaScript/upgrade.js"></script>
+    <script src="JavaScript/generator.js"></script>
     <script src="JavaScript/keymaster.js"></script>
     <link rel="stylesheet" href="style.css">
     <meta name="application-name" content="Point Generation">
     <meta name="author" content="DeletedUser-0">
     <meta name="keywords" content="point generation, clicker-game, idle-game, deleteduser-0, exponentiation, clicker game, idle game">
-    <meta name="description" content="The goal is to get the most points possible. You start with small numbers and end with really big numbers, like eee20!"
+    <meta name="description" content="The goal is to get the most points possible. You start with small numbers and end with really big numbers, like eee20!" <="" head="">
+
+
 </head>
 
-
 <body bgcolor="black">
-    <p id="Ppoints"></p>
-    <button id="Ppointsreset" onclick="addPPoints()"></button>
-    <p id="points">You have 0 points.</p>
+    <p id="Ppoints">You have <strong>4.01e3</strong> Prestige Points.</p>
+    <button id="Ppointsreset" onclick="addPPoints()">Prestige to gain 4.43 Prestige Points.</button>
     <br>
-    <p id="PPS">You are earning 1.00 points per second.</p>
+    <p id="points">You have 2.92e26 points.</p>
     <br>
-    <button class="tablink" onclick="openPage('Home', this, 'grey')">Points</button>
+    <p id="PPS">You are earning 4.35e24 points per second.</p>
+    <br>
+    <button class="tablink" onclick="openPage('Home', this, 'grey')" style="background-color: grey;">Points</button>
     <button class="tablink" onclick="openPage('Statistics', this, 'grey')">Statistics</button>
-    <button class="tablink" onclick="openPage('Prestige Points', this, 'lightgrey')">Prestige Points</button>
+    <button class="tablink" onclick="openPage('Prestige Points', this, 'rgb(175, 175, 0')">Prestige Points</button>
+    <button class="tablink" onclick="openPage('Generator', this, 'rgb(175, 0, 0)')">Generator</button>
     <br>
     <br>
-    <div id="Home" class="tabcontent">
+    <div id="Home" class="tabcontent" style="display: block;">
         <button id="buyMax" onclick="upgradeMax()">Buy Max</button>
         <br>
         <br>
-        <strong style="color: white; font-family: a;" id="increase1">Receive 10% more points per second.</strong>
-        <p id="upgrade1" class="upgrade">Cost: 10.0 (10.0s)<br> Level: 0</p>
-        <button id="buy1" onclick="upgrade1()">Buy</button>
+        <strong style="color: white; font-family: a;" id="increase1">Receive 13.57% more points.</strong>
+        <p id="upgrade1" class="upgrade">Cost: 10.0 (2.30e-24s) <br> Level: 0</p>
+        <button id="buy1" onclick="upgrade1()">Buy (+10.00%)</button>
         <br>
         <br>
         <strong style="color: white; font-family: a;">Reduce tickspeed by 25%.</strong>
-        <p id="upgrade2" class="upgrade">Cost: 100<br> Level: 0</p>
+        <p id="upgrade2" class="upgrade">Cost: 100 (2.30e-23s) <br> Level: 0</p>
         <button id="buy2" onclick="upgrade2()">Buy</button>
     </div>
-    <div id="Statistics" class="tabcontent">
-        <p id="time"></p>
-        <p id="total"></p>
-        <p id="max"></p>
+    <div id="Statistics" class="tabcontent" style="display: none;">
+        <p id="time">Total time played: 5790 seconds.</p>
+        <p id="total">Total points income: 4.35e24x</p>
+        <p id="max">Maximum points reached: 1.67e58</p>
         <br>
         <strong style="color: white; font-family: a;">Save and load your game.</strong>
         <br>
@@ -52,24 +55,37 @@
         <button onclick="Save()" id="buy">Save</button>
         <button onclick="Load()" id="buy">Load</button>
     </div>
-    <div id="Prestige Points" class="tabcontent">
-        <button id="upgrade3" class="PpointsUp" onclick="upgrade3()"></button>
+    <div id="Prestige Points" class="tabcontent" style="display: none;">
+        <button id="upgrade3" class="PpointsUp" onclick="upgrade3()">Increase points multiplier income based on time played. <br> <br> 3.35e7 times more <br> Cost: 1.03e3 Prestige Points.</button>
         <br>
         <br>
-        <button id="upgrade4" class="PpointsUp" onclick="upgrade4()"></button>
+        <button id="upgrade4" class="PpointsUp" onclick="upgrade4()">Increase points multiplier income based on time played during this prestige. <br> <br> 4.22e6 times more <br> Cost: 1.24e3 Prestige Points.</button>
         <br>
         <br>
-        <button id="upgrade5" class="PpointsUp" onclick="upgrade5()"></button>
+        <button id="upgrade5" class="PpointsUp" onclick="upgrade5()">Earn 10x more points. <br> <br> 1.00e8 times more <br> Cost: 1.40e3 Prestige Points.</button>
         <br>
         <br>
-        <button id="upgrade6" class="PpointsUp" onclick="upgrade6()"></button>
+        <button id="upgrade7" class="PpointsUp" onclick="upgrade7()">First points upgrade is stronger. <br> <br> Cost: 3.83e3 Prestige Points.</button>
         <br>
         <br>
-        <button id="upgrade7" class="PpointsUp" onclick="upgrade7()"></button>
-        <br>
-        <br>
-        <button id="upgrade9" class="PpointsUp" onclick="upgrade9()"></button>
+        <button id="upgrade9" class="PpointsUp" onclick="upgrade9()">You earn more Prestige Points automatically based on your current points. <br> <br>  Cost: 1.00e4 Prestige Points.</button>
     </div>
+    <div id="Generator" class="tabcontent" style="display: none;">
+        <p id="generatornumber" style="font-family: a; text-align: center; color: white;"></p>
+        <br>
+        <button id="gup1" class="gbuy" onclick="gupgrade1()"></button>
+        <br>
+        <br>
+        <button id="gup2" class="gbuy" onclick="gupgrade2()"></button>
+        <br>
+        <br>
+        <button id="gup3" class="gbuy" onclick="gupgrade3()"></button>
+        <br>
+        <br>
+        <button id="gup4" class="gbuy" onclick="gupgrade4()"></button>
+    </div>
+
+
 </body>
 
 </html>

@@ -176,7 +176,7 @@ var mainGameLoop = window.setInterval(function() {
 }, 1);
 
 function recalculate() {
-    game.PrestigeUpgrade1.effectiveness = OmegaNum.pow(game.time, 0.5).pow(game.PrestigeUpgrade1.level).pow(OmegaNum.divide(game.gupgrade3.level, 7).add(1));
+    game.PrestigeUpgrade1.effectiveness = OmegaNum.pow(game.time, 0.25).pow(game.PrestigeUpgrade1.level).pow(OmegaNum.divide(game.gupgrade3.level, 7).add(1));
     game.PrestigeUpgrade2.effectiveness = OmegaNum.pow(OmegaNum.add(game.Ppoints.time, 1), 0.55).pow(game.PrestigeUpgrade2.level);
     if (OmegaNum.compare(game.points.total, 1e9) >= 0 || (OmegaNum.compare(game.Ppoints.reset, 0) == 1)) {
         game.Ppoints.earn = OmegaNum.pow(10, OmegaNum.log10(game.points.total) / 27 - 0.7).times(2.3263);

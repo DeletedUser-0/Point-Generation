@@ -6,7 +6,7 @@ function upgrade1() {
         game.upgrade1.cost = OmegaNum.times(game.upgrade1.cost, game.upgrade1.increase);
         game.points.upgradebonus = OmegaNum.times(game.points.upgradebonus, game.upgrade1.increase2);
         game.upgrade1.level = OmegaNum.add(game.upgrade1.level, 1);
-        game.upgrade1.increase = OmegaNum.pow(game.upgrade1.increase, 1.003);
+        game.upgrade1.increase = OmegaNum.times(game.upgrade1.level, 0.0036).add(1.1);
     };
 };
 
@@ -71,11 +71,11 @@ function upgrade5() {
         if (OmegaNum.compare(game.points.max, 1.8e308) >= 0) {
             game.PrestigeUpgrade3.cost = OmegaNum.pow(game.PrestigeUpgrade1.cost, 1.12);
             game.PrestigeUpgrade3.level = OmegaNum.add(game.PrestigeUpgrade3.level, 1);
-            game.PrestigeUpgrade3.effectiveness = OmegaNum.pow(10, game.PrestigeUpgrade3.level);
+            game.PrestigeUpgrade3.effectiveness = OmegaNum.times(game.PrestigeUpgrade3.multiplier, game.PrestigeUpgrade3.effectiveness);
         } else {
             game.PrestigeUpgrade3.cost = OmegaNum.pow(2, game.PrestigeUpgrade3.level).pow(1.2).times(2.5).pow(1.075, game.PrestigeUpgrade1.cost);
             game.PrestigeUpgrade3.level = OmegaNum.add(game.PrestigeUpgrade3.level, 1);
-            game.PrestigeUpgrade3.effectiveness = OmegaNum.pow(10, game.PrestigeUpgrade3.level);
+            game.PrestigeUpgrade3.effectiveness = OmegaNum.times(game.PrestigeUpgrade3.multiplier, game.PrestigeUpgrade3.effectiveness);
         }
     };
 };
@@ -88,9 +88,12 @@ function upgrade7() {
             game.Ppoints.total = OmegaNum.sub(game.Ppoints.total, game.PrestigeUpgrade4.cost);
             game.PrestigeUpgrade4.level = OmegaNum.add(game.PrestigeUpgrade4.level, 1);
             game.PrestigeUpgrade4.cost = OmegaNum.pow(game.PrestigeUpgrade4.cost, 1.2).times(3).pow(1.04, game.PrestigeUpgrade1.cost);
-            game.upgrade1.increase2 = OmegaNum.pow(game.upgrade1.increase2, 1.075);
-            if (Decimal.cmp(game.upgrade1.increase2, 1.25) >= 0) {
-                game.upgrade1.increase2 = OmegaNum.pow(game.upgrade1.increase2, 1.075);
+            game.upgrade1.increase2 = OmegaNum.pow(game.upgrade1.increase2, 1.15);
+            if (OmegaNum.cmp(game.upgrade1.increase2, 1.25) >= 0) {
+                game.PrestigeUpgrade4.cost = OmegaNum.pow(game.PrestigeUpgrade4.cost, 1.075);
+            }
+            if (OmegaNum.cmp(game.upgrade1.increase, 7.777) >= 0) {
+                game.PrestigeUpgrade4.cost = OmegaNum.pow(game.PrestigeUpgrade4.cost, 2);
             }
         }
     };
@@ -103,3 +106,18 @@ function upgrade9() {
         game.PrestigeUpgrade5.cost = OmegaNum.pow(1.625, game.PrestigeUpgrade5.level).times(10000).pow(1.07, game.PrestigeUpgrade1.cost);
     }
 };
+
+function upgradeMax2() {
+    upgrade3()
+    upgrade4()
+    upgrade5()
+    upgrade7()
+    upgrade8()
+    upgrade9()
+}
+
+var mainGameLoop = window.setInterval(function () {
+    if (OmegaNum.compare(game.Ppoints.total, 1e50) >= 0) {
+        upgradeMax2()
+    }
+}, 1);

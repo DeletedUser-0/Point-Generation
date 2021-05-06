@@ -36,13 +36,13 @@ class Game {
         };
 
         this.PrestigeUpgrade2 = {
-            cost: data?.PrestigeUpgrade2?.cost || 5,
+            cost: data?.PrestigeUpgrade2?.cost || 1.5,
             level: data?.PrestigeUpgrade2?.level || 0,
             effectiveness: data?.PrestigeUpgrade2?.effectiveness || 1
         };
 
         this.PrestigeUpgrade3 = {
-            cost: data?.PrestigeUpgrade3?.cost || 3,
+            cost: data?.PrestigeUpgrade3?.cost || 2.25,
             level: data?.PrestigeUpgrade3?.level || 0,
             effectiveness: data?.PrestigeUpgrade3?.effectiveness || 1,
             multiplier: data?.PrestigeUpgrade3.multiplier || 10,

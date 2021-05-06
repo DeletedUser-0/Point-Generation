@@ -44,7 +44,8 @@ class Game {
         this.PrestigeUpgrade3 = {
             cost: data?.PrestigeUpgrade3?.cost || 3,
             level: data?.PrestigeUpgrade3?.level || 0,
-            effectiveness: data?.PrestigeUpgrade3?.effectiveness || 1
+            effectiveness: data?.PrestigeUpgrade3?.effectiveness || 1,
+            multiplier: data?.PrestigeUpgrade3.multiplier || 10,
         };
 
         this.PrestigeUpgrade4 = {
@@ -63,16 +64,16 @@ class Game {
             total: data?.generator?.total || 1,
             multiplier: data?.generator?.multiplier || 1.0002,
             translate: data?.generator?.translate || 1,
-            exponent: data?.generator?.exponent || 1.5,
+            exponent: data?.generator?.exponent || 0.5,
         };
 
         this.gupgrade1 = {
-            cost: data?.gupgrade1?.cost || 4,
+            cost: data?.gupgrade1?.cost || 1.75,
             level: data?.gupgrade1?.level || 0,
         };
 
         this.gupgrade2 = {
-            cost: data?.gupgrade2?.cost || 1e25,
+            cost: data?.gupgrade2?.cost || 3.16227766e7,
             level: data?.gupgrade2?.level || 0,
         };
 
@@ -84,6 +85,11 @@ class Game {
         this.gupgrade4 = {
             cost: data?.gupgrade4?.cost || new OmegaNum("1e500"),
             level: data?.gupgrade4?.level || 0,
+        };
+
+        this.gupgrade5 = {
+            cost: data?.gupgrade5?.cost || 1e100,
+            level: data?.gupgrade5?.level || 0,
         };
     };
 };
@@ -176,7 +182,7 @@ var mainGameLoop = window.setInterval(function() {
 }, 1);
 
 function recalculate() {
-    game.PrestigeUpgrade1.effectiveness = OmegaNum.pow(game.time, 0.25).pow(game.PrestigeUpgrade1.level).pow(OmegaNum.divide(game.gupgrade3.level, 7).add(1));
+    game.PrestigeUpgrade1.effectiveness = OmegaNum.pow(game.time, 0.25).pow(game.PrestigeUpgrade1.level).pow(game.gupgrade3.level, 3);
     game.PrestigeUpgrade2.effectiveness = OmegaNum.pow(OmegaNum.add(game.Ppoints.time, 1), 0.55).pow(game.PrestigeUpgrade2.level);
     if (OmegaNum.compare(game.points.total, 1e9) >= 0 || (OmegaNum.compare(game.Ppoints.reset, 0) == 1)) {
         game.Ppoints.earn = OmegaNum.pow(10, OmegaNum.log10(game.points.total) / 27 - 0.7).times(2.3263);
@@ -259,7 +265,7 @@ function ui() {
         } else {
             document.getElementById("upgrade4").innerHTML = `Increase points multiplier income based on time played during this prestige. <br> <br> ${notate(game.PrestigeUpgrade2.effectiveness)} times more <br> Cost: ${notate(game.PrestigeUpgrade2.cost)} PP.`;
         }
-        document.getElementById("upgrade5").innerHTML = `Earn 10x more points. <br> <br> ${notate(game.PrestigeUpgrade3.effectiveness)} times more <br> Cost: ${notate(game.PrestigeUpgrade3.cost)} Prestige Points.`;
+        document.getElementById("upgrade5").innerHTML = `Earn ${notate(game.PrestigeUpgrade3.multiplier)}x more points. <br> <br> ${notate(game.PrestigeUpgrade3.effectiveness)} times more <br> Cost: ${notate(game.PrestigeUpgrade3.cost)} Prestige Points.`;
         document.getElementById("upgrade7").innerHTML = `First points upgrade is stronger. <br> <br> Cost: ${notate(game.PrestigeUpgrade4.cost)} Prestige Points.`;
     } else {
         document.getElementById("upgrade3").innerHTML = `???`;
@@ -275,11 +281,12 @@ function ui() {
     }
 
     if (OmegaNum.compare(game.Ppoints.total, 5e6) >= 0) {
-        document.getElementById("generatornumber").innerHTML = `You have <strong style="font-size: 125%;">${notate(game.generator.total)}</strong> generator points, translating to ${notate(game.generator.translate)} times more points. <br> <br style="font-size: 75%"> You are earning ${notate(OmegaNum.times((OmegaNum.pow(game.generator.multiplier, 50)), 100).sub(100))}% more generator points per second.`
-        document.getElementById("gup1").innerHTML = `Increase generator points receivement. <br> Cost: ${notate(game.gupgrade1.cost)} GP.`
-        document.getElementById("gup2").innerHTML = `Improves generator bonus formula. <br> Effect: x<sup>${notate(game.generator.exponent)}</sup> -> x<sup>${notate(OmegaNum.times(game.generator.exponent, 1.0333333333333333))}<br> Cost: ${notate(game.gupgrade2.cost)} GP.`;
-        document.getElementById("gup3").innerHTML = `First Prestige Points Upgrade is stronger. <br> <br> Cost: ${notate(game.gupgrade3.cost)} GP.`;
+        document.getElementById("generatornumber").innerHTML = `You have <strong style="font-size: 125%;">${notate(game.generator.total)}</strong> generator points, translating to <strong style="font-size: 125%;">${notate(game.generator.translate)} </strong>times more points. <br> <br style="font-size: 75%"> You are earning ${notate(OmegaNum.times((OmegaNum.pow(game.generator.multiplier, 50)), 100).sub(100))}% more generator points per second.`
+        document.getElementById("gup1").innerHTML = `Increase generator points receivement. <br> Cost: ${notate(game.gupgrade1.cost)} GP (${notate(OmegaNum.divide(OmegaNum.log10(game.gupgrade1.cost), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))))}s).`
+        document.getElementById("gup2").innerHTML = `Improves generator bonus formula. <br> Effect: x<sup>${notate(game.generator.exponent)}</sup> -> x<sup>${notate(OmegaNum.times(game.generator.exponent, 1.05))}<br> Cost: ${notate(game.gupgrade2.cost)} GP (${notate(OmegaNum.divide(OmegaNum.log10(game.gupgrade2.cost), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))))}).`;
+        document.getElementById("gup3").innerHTML = `First Prestige Points Upgrade is stronger. <br> <br> Cost: ${notate(game.gupgrade3.cost)} GP (${notate(OmegaNum.divide(OmegaNum.log10(game.gupgrade3.cost), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))))}).`;
         document.getElementById("gup4").innerHTML = `Point Generation is better based on your second points upgrade. <br> <br> Cost: ${notate(game.gupgrade4.cost)} Points.`;
+        document.getElementById("gup5").innerHTML = `3rd Prestige Points Upgrade is stronger. <br> <br> Cost: ${notate(game.gupgrade5.cost)} Points.`;
     } else {
         if (OmegaNum.compare(game.Ppoints.total, 1) <= 0) {
             document.getElementById("generatornumber").innerHTML = `???`;

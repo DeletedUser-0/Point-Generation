@@ -6,7 +6,7 @@ function upgrade1() {
         game.upgrade1.cost = OmegaNum.times(game.upgrade1.cost, game.upgrade1.increase);
         game.points.upgradebonus = OmegaNum.times(game.points.upgradebonus, game.upgrade1.increase2);
         game.upgrade1.level = OmegaNum.add(game.upgrade1.level, 1);
-        game.upgrade1.increase = OmegaNum.times(game.upgrade1.level, 0.0036).add(1.1);
+        game.upgrade1.increase = OmegaNum.pow(game.upgrade1.increase, 1.003);
     };
 };
 

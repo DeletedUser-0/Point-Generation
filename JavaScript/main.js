@@ -10,7 +10,7 @@ class Game {
         };
 
         this.upgrade1 = {
-            cost: data?.upgrade1?.cost || 15,
+            cost: data?.upgrade1?.cost || 10,
             level: data?.upgrade1?.level || 0,
             increase: data?.upgrade1?.increase || 1.1,
             increase2: data?.upgrade1?.increase2 || 1.1,
@@ -336,3 +336,57 @@ var mainGameLoop = window.setInterval(function () {
 }, 1);
 
 Load();
+
+function ResetProgress() {
+    confirm("Do you really want to reset your progress?");
+    if (r == true) {
+        txt = "You pressed OK!";
+        game.time = 0;
+        game.points.total = 0;
+        game.points.perTick = 0.02;
+        game.points.upgradebonus = 1;
+        game.points.max = 0;
+        game.upgrade1.cost = 10;
+        game.upgrade1.level = 0;
+        game.upgrade1.increase = 1.1;
+        game.upgrade1.increase2 = 1.1;
+        game.upgrade2.cost = 100;
+        game.upgrade2.level = 0;
+        game.Ppoints.total = 0;
+        game.Ppoints.earn = 0;
+        game.Ppoints.reset = 0;
+        game.Ppoints.time = 0;
+        game.Ppoints.max = 0;
+        game.PrestigeUpgrade1.cost = 1;
+        game.PrestigeUpgrade2.cost = 10;
+        game.PrestigeUpgrade3.cost = 100;
+        game.PrestigeUpgrade4.cost = 1000;
+        game.PrestigeUpgrade5.cost = 100000;
+        game.PrestigeUpgrade1.level = 0;
+        game.PrestigeUpgrade1.effectiveness = 1;
+        game.PrestigeUpgrade2.level = 0;
+        game.PrestigeUpgrade2.effectiveness = 1;
+        game.PrestigeUpgrade3.level = 0;
+        game.PrestigeUpgrade3.effectiveness = 1;
+        game.PrestigeUpgrade3.multiplier = 10;
+        game.PrestigeUpgrade4.level = 0;
+        game.PrestigeUpgrade4.effectiveness = 1;
+        game.PrestigeUpgrade5.level = 0;
+        game.PrestigeUpgrade5.effectiveness = 0;
+        game.generator.total = 1;
+        game.generator.multiplier = 1.0002;
+        game.generator.translate = 1;
+        game.generator.exponent = 0.3333333333333333333;
+        game.generator.limit = 1e300;
+        game.gupgrade1.cost = 1.75;
+        game.gupgrade1.level = 0;
+        game.gupgrade2.cost = 3.16227766e7;
+        game.gupgrade2.level = 0;
+        game.gupgrade4.cost = new OmegaNum("1e500");
+        game.gupgrade4.level = 0;
+        game.gupgrade5.cost = 1e100;
+        game.gupgrade5.level = 0;
+        game.gupgrade6.cost = 1e150;
+        game.gupgrade6.level = 0;
+    };
+};

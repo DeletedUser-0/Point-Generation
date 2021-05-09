@@ -338,7 +338,8 @@ var mainGameLoop = window.setInterval(function () {
 Load();
 
 function ResetProgress() {
-    confirm("Do you really want to reset your progress?");
+    var txt;
+    var r = confirm("Do you really want to reset your progress?");
     if (r == true) {
         txt = "You pressed OK!";
         game.time = 0;

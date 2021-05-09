@@ -74,7 +74,7 @@ html {
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 14px 16px;
+    padding: 10px 10px;
     font-size: 17px;
     width: 25%;
     font-family: a;
@@ -205,11 +205,30 @@ html {
     position: relative;
 }
 
+#gup4 {
+    position: relative;
+    float: right;
+    bottom: 5cm;
+}
+
+#gup5 {
+    position: relative;
+    float: right;
+    bottom: 3.5cm;
+    left: 7.95cm;
+}
+
+#gup6 {
+    position: relative;
+    bottom: 1.9cm;
+}
+
 .gbuy {
     font-family: a;
     background-color: white;
     border: black;
-    tab-size: 250px;
+    height: 75px;
+    width: 300px;
     transition: 250ms;
 }
 
@@ -217,6 +236,18 @@ html {
     font-family: a;
     background-color: rgb(34, 132, 165);
     border: rgb(34, 132, 225);
-    size: 300px;
+    height: 75px;
+    width: 300px;
     transition: 250ms;
 };
+
+.text {
+    font-family: a;
+    color: white;
+}
+
+.text2 {
+    font-family: a;
+    text-align: center;
+    color: white;
+}

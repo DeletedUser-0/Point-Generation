@@ -92,6 +92,22 @@ class Game {
             cost: data?.gupgrade6?.cost || 1e150,
             level: data?.gupgrade6?.level || 0,
         };
+
+        this.gupgrade7 = {
+            cost: data?.gupgrade7?.cost || new OmegaNum("1e1500"),
+            level: data?.gupgrade7?.level || 0,
+            pow: data?.gupgrade7?.pow || 1,
+        };
+
+        this.settings = {
+            showPerTick: "true",
+        };
+
+        this.ip = {
+            total: data?.ip?.total || new OmegaNum("0"),
+            earn: data?.ip?.earn || new OmegaNum("0"),
+            reset: data?.ip?.reset || new OmegaNum("0"),
+        }
     };
 };
 
@@ -234,7 +250,11 @@ function openPage(pageName, elmnt, color) {
 
 function ui() {
     document.getElementById("points").innerHTML = `You have ${notate(game.points.total)} points.`;
-    document.getElementById("PPS").innerHTML = `You are earning ${notate(OmegaNum.times(game.points.perTick, 50))} points per second.`;
+    if (game.settings.showPerTick === "true") {
+        document.getElementById("PPS").innerHTML = `You are earning ${notate(OmegaNum.times(game.points.perTick, 50))} points per second.`;
+    } else {
+        document.getElementById("PPS").style.display = "none";
+    }
     if (OmegaNum.compare(game.PrestigeUpgrade4.level, 0) == -1) {
         document.getElementById("increase1").innerHTML = `Receive 10% more points.`
     } else if ((OmegaNum.compare(game.upgrade1.increase2, 1.1) >= 0) && OmegaNum.compare(game.upgrade1.increase2, 2) == -1) {
@@ -297,15 +317,17 @@ function ui() {
     }
 
     if (OmegaNum.cmp(game.generator.multiplier, 1.004472844) >= 0) {
-        document.getElementById("generatornumber").innerHTML = `You have <strong style="font-size: 125%;">${notate(game.generator.total)}</strong> generator points, translating to <strong style="font-size: 125%;">${notate(game.generator.translate)} </strong>times more points. <br> <br style="font-size: 75%"> You are earning ${notate(OmegaNum.pow(game.generator.multiplier, 50))} times more generator points per second. <p style="font-size: 75%;" color="grey"> ${notate(OmegaNum.div(OmegaNum.log10(OmegaNum.div(game.generator.limit, game.generator.total)), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))))} seconds until the limit. </p>`
+        document.getElementById("generatornumber").innerHTML = `You have <strong style="font-size: 125%;">${notate(game.generator.total)}</strong> generator points, translating to <strong style="font-size: 125%;">${notate(game.generator.translate)} </strong>times more points. <br> <br style="font-size: 75%"> You are earning ${notate(OmegaNum.pow(game.generator.multiplier, 50))} times more generator points per second. <p style="font-size: 75%;" color="grey"> ${OmegaNum.div(OmegaNum.log10(OmegaNum.div(game.generator.limit, game.generator.total)), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))).toFixed(1)} seconds until the limit (${(OmegaNum.div(OmegaNum.log10(game.generator.total), OmegaNum.log10(game.generator.limit)).times(100)).toFixed(2)}%). </p>`
     } else {
-        document.getElementById("generatornumber").innerHTML = `You have <strong style="font-size: 125%;">${notate(game.generator.total)}</strong> generator points, translating to <strong style="font-size: 125%;">${notate(game.generator.translate)} </strong>times more points. <br> <br style="font-size: 75%"> You are earning ${notate(OmegaNum.times((OmegaNum.pow(game.generator.multiplier, 50)), 100).sub(100))}% more generator points per second. <p style="font-size: 75%;" color="grey"> ${notate(OmegaNum.div(OmegaNum.log10(OmegaNum.div(game.generator.limit, game.generator.total)), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))))} seconds until the limit. </p>`
+        document.getElementById("generatornumber").innerHTML = `You have <strong style="font-size: 125%;">${notate(game.generator.total)}</strong> generator points, translating to <strong style="font-size: 125%;">${notate(game.generator.translate)} </strong>times more points. <br> <br style="font-size: 75%"> You are earning ${notate(OmegaNum.times((OmegaNum.pow(game.generator.multiplier, 50)), 100).sub(100))}% more generator points per second. <p style="font-size: 75%;" color="grey"> ${OmegaNum.div(OmegaNum.log10(OmegaNum.div(game.generator.limit, game.generator.total)), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))).toFixed(1)} seconds until the limit (${(OmegaNum.div(OmegaNum.log10(game.generator.total), OmegaNum.log10(game.generator.limit)).times(100)).toFixed(2)}%). </p>`
     }
         document.getElementById("gup1").innerHTML = `Increase generator points receivement. <br> <br> Cost: ${notate(game.gupgrade1.cost)} GP (${notate(OmegaNum.divide(OmegaNum.log10(game.gupgrade1.cost), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))))}s).`
-        document.getElementById("gup2").innerHTML = `Improves generator bonus formula. <br> Effect: x<sup>${notate(game.generator.exponent)}</sup> -> x<sup>${notate(OmegaNum.times(game.generator.exponent, 1.025))}<br> <br>Cost: ${notate(game.gupgrade2.cost)} GP (${notate(OmegaNum.divide(OmegaNum.log10(game.gupgrade2.cost), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))))}).`;
+        document.getElementById("gup2").innerHTML = `Improves generator bonus formula. <br> Effect: x<sup>${notate(game.generator.exponent)}</sup> -> x<sup>${notate(OmegaNum.add(game.generator.exponent, 0.025))}<br> <br>Cost: ${notate(game.gupgrade2.cost)} GP (${notate(OmegaNum.divide(OmegaNum.log10(game.gupgrade2.cost), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))))}).`;
         document.getElementById("gup4").innerHTML = `Point Generation is better based on your second points upgrade. <br> <br> Cost: ${notate(game.gupgrade4.cost)} Points.`;
         document.getElementById("gup5").innerHTML = `3rd Prestige Points Upgrade is stronger. <br> <br> Cost: ${notate(game.gupgrade5.cost)} Points.`;
-        document.getElementById("gup6").innerHTML = `Generator's points limit increases. <br> Limit: ${notate(game.generator.limit)} -> ${notate(OmegaNum.pow(game.generator.limit, 1.2))}<br> <br> Cost: ${notate(game.gupgrade6.cost)} GP.`;
+        document.getElementById("gup6").innerHTML = `Generator's points limit increases. <br> Limit: ${notate(game.generator.limit)} -> ${notate(OmegaNum.pow(game.generator.limit, 1.25))}<br> <br> Cost: ${notate(game.gupgrade6.cost)} GP.`;
+        document.getElementById("gup7").innerHTML = `Multiplier increases even more. <br> Effect: x<sup>${notate(game.gupgrade7.pow)}</sup> -> x<sup>${notate(OmegaNum.times(game.gupgrade7.pow, 1.02))}</sup><br> <br> Cost: ${notate(game.gupgrade7.cost)} Points.`;
+
 
     document.getElementById("time").innerHTML = `Total time played: ${(game.time).toFixed(0)} seconds.`;
     document.getElementById("total").innerHTML = `Total points income: ${notate(OmegaNum.times(game.PrestigeUpgrade1.effectiveness, game.PrestigeUpgrade2.effectiveness).times(game.PrestigeUpgrade3.effectiveness).times(game.PrestigeUpgrade4.effectiveness).times(game.generator.translate))}x`;
@@ -319,9 +341,9 @@ var mainGameLoop = window.setInterval(function () {
 function time() {
     game.time = OmegaNum.add(0.02, game.time);
     if (OmegaNum.compare(game.gupgrade4.level, 1) >= 0) {
-        game.generator.multiplier = (OmegaNum.pow(40, OmegaNum.div(game.upgrade2.level, 16000000).div(40)).pow(Math.pow(game.gupgrade1.level, 2))).pow(OmegaNum.pow(game.gupgrade4.level, 0.3));
+        game.generator.multiplier = (OmegaNum.pow(40, OmegaNum.div(game.upgrade2.level, 16000000).div(40)).pow(Math.pow(game.gupgrade1.level, 2.2))).pow(OmegaNum.pow(game.gupgrade4.level, 0.3).pow(game.gupgrade7.pow));
     } else {
-        game.generator.multiplier = OmegaNum.pow(1.05, game.gupgrade1.level).times(0.0002).add(1);
+        game.generator.multiplier = OmegaNum.pow(1.06, game.gupgrade1.level).times(0.0002).add(1).pow(game.gupgrade7.pow);
     }
 }
 
@@ -389,5 +411,11 @@ function ResetProgress() {
         game.gupgrade5.level = 0;
         game.gupgrade6.cost = 1e150;
         game.gupgrade6.level = 0;
+        game.gupgrade7.level = 0;
+        game.gupgrade7.cost = new OmegaNum("1e1500");
+        game.gupgrade7.pow = 1;
+        game.ip.total = 0;
+        game.ip.earn = 0;
+        game.ip.reset = 0;
     };
 };

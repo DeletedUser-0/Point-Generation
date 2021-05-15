@@ -8,6 +8,7 @@
     <script src="JavaScript/upgrade.js"></script>
     <script src="JavaScript/generator.js"></script>
     <script src="JavaScript/keymaster.js"></script>
+    <script src="JavaScript/settings.js"></script>
     <link rel="stylesheet" href="style.css">
     <meta name="application-name" content="Point Generation">
     <meta name="author" content="DeletedUser-0">
@@ -29,6 +30,7 @@
     <button class="tablink" onclick="openPage('Statistics', this, 'grey')">Statistics</button>
     <button class="tablink" onclick="openPage('Prestige Points', this, 'rgb(175, 175, 0')">Prestige Points</button>
     <button class="tablink" onclick="openPage('Generator', this, 'rgb(175, 0, 0)')">Generator</button>
+    <button class="tablink" onclick="openPage('Settings', this, 'grey)')">Settings</button>
     <br>
     <br>
     <div id="Home" class="tabcontent" style="display: block;">
@@ -89,6 +91,14 @@
         <br>
         <br>
         <button id="gup6" class="gbuy" onclick="gupgrade6()"></button>
+        <br>
+        <br>
+        <button id="gup7" class="gbuy" onclick="gupgrade7()"></button>
+    </div>
+    <div id="Settings" class="tabcontent" style="display: none;">
+        <p id="text" style="font-family: a;">Show total Points per Second (Doesn't work)</p>
+        <br>
+        <button id="text" onclick="showPPS()" style="font-family: a;">Show/Disable</button>
     </div>
 </body>
 

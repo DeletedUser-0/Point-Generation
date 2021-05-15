@@ -156,7 +156,7 @@ function notate(n = new OmegaNum(0)) {
         return e < 3 ? n.toPrecision(3) : `${m.toPrecision(3)}e${e}`;
     }
     else if (n.array[1] < 2) { 
-        return `${Math.pow(10, n.array[0] - Math.floor(n.array[0])).toPrecision(3)}e${Math.floor(n.array[0]).toLocaleString("pt-BR")}`;
+        return `${Math.pow(10, n.array[0] - Math.floor(n.array[0])).toPrecision(3)}x10<sup>${Math.floor(n.array[0]).toLocaleString("pt-BR")}</sup>`;
     }
     else {
         return `${"e".repeat(n.array[1])}${Math.floor(n.array[0])}`;
@@ -317,12 +317,12 @@ function ui() {
     } else {
         document.getElementById("generatornumber").innerHTML = `You have <strong style="font-size: 125%;">${notate(game.generator.total)}</strong> generator points, translating to <strong style="font-size: 125%;">${notate(game.generator.translate)} </strong>times more points. <br> <br style="font-size: 75%"> You are earning ${notate(OmegaNum.times((OmegaNum.pow(game.generator.multiplier, 50)), 100).sub(100))}% more generator points per second. <p style="font-size: 75%;" color="grey"> ${OmegaNum.div(OmegaNum.log10(OmegaNum.div(game.generator.limit, game.generator.total)), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))).toFixed(1)} seconds until the limit (${(OmegaNum.div(OmegaNum.log10(game.generator.total), OmegaNum.log10(game.generator.limit)).times(100)).toFixed(2)}%). </p>`
     }
-        document.getElementById("gup1").innerHTML = `Increase generator points receivement. <br> <br> Cost: ${notate(game.gupgrade1.cost)} GP (${notate(OmegaNum.divide(OmegaNum.log10(game.gupgrade1.cost), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))))}s).`
-        document.getElementById("gup2").innerHTML = `Improves generator bonus formula. <br> Effect: x<sup>${notate(game.generator.exponent)}</sup> -> x<sup>${notate(OmegaNum.add(game.generator.exponent, 0.025))}<br> <br>Cost: ${notate(game.gupgrade2.cost)} GP (${notate(OmegaNum.divide(OmegaNum.log10(game.gupgrade2.cost), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))))}).`;
-        document.getElementById("gup4").innerHTML = `Point Generation is better based on your second points upgrade. <br> <br> Cost: ${notate(game.gupgrade4.cost)} Points.`;
-        document.getElementById("gup5").innerHTML = `3rd Prestige Points Upgrade is stronger. <br> <br> Cost: ${notate(game.gupgrade5.cost)} Points.`;
-        document.getElementById("gup6").innerHTML = `Generator's points limit increases. <br> Limit: ${notate(game.generator.limit)} -> ${notate(OmegaNum.pow(game.generator.limit, 1.25))}<br> <br> Cost: ${notate(game.gupgrade6.cost)} GP.`;
-        document.getElementById("gup7").innerHTML = `Multiplier increases even more. <br> Effect: x<sup>${notate(game.gupgrade7.pow)}</sup> -> x<sup>${notate(OmegaNum.times(game.gupgrade7.pow, 1.02))}</sup><br> <br> Cost: ${notate(game.gupgrade7.cost)} Points.`;
+    document.getElementById("gup1").innerHTML = `Increase generator points receivement. <br> <br> Cost: ${notate(game.gupgrade1.cost)} GP (${notate(OmegaNum.divide(OmegaNum.log10(game.gupgrade1.cost), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))))}s).`
+    document.getElementById("gup2").innerHTML = `Improves generator bonus formula. <br> Effect: x<sup>${notate(game.generator.exponent)}</sup> -> x<sup>${notate(OmegaNum.add(game.generator.exponent, 0.025))}<br> <br>Cost: ${notate(game.gupgrade2.cost)} GP (${notate(OmegaNum.divide(OmegaNum.log10(game.gupgrade2.cost), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))))}).`;
+    document.getElementById("gup4").innerHTML = `Point Generation is better based on your second points upgrade. <br> <br> Cost: ${notate(game.gupgrade4.cost)} Points.`;
+    document.getElementById("gup5").innerHTML = `3rd Prestige Points Upgrade is stronger. <br> <br> Cost: ${notate(game.gupgrade5.cost)} Points.`;
+    document.getElementById("gup6").innerHTML = `Generator's points limit increases. <br> Limit: ${notate(game.generator.limit)} -> ${notate(OmegaNum.pow(game.generator.limit, 1.25))}<br> Cost: ${notate(game.gupgrade6.cost)} GP.`;
+    document.getElementById("gup7").innerHTML = `Multiplier increases even more. <br> Effect: x<sup>${notate(game.gupgrade7.pow)}</sup> -> x<sup>${notate(OmegaNum.times(game.gupgrade7.pow, 1.02))}</sup><br> Cost: ${notate(game.gupgrade7.cost)} Points.`;
     document.getElementById("time").innerHTML = `Total time played: ${(game.time).toFixed(0)} seconds.`;
     document.getElementById("total").innerHTML = `Total points income: ${notate(OmegaNum.times(game.PrestigeUpgrade1.effectiveness, game.PrestigeUpgrade2.effectiveness).times(game.PrestigeUpgrade3.effectiveness).times(game.PrestigeUpgrade4.effectiveness).times(game.generator.translate))}x`;
     document.getElementById("max").innerHTML = `Maximum points reached: ${notate(game.points.max)}`;

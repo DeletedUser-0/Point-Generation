@@ -38,8 +38,16 @@ function gupgrade6() {
     if (OmegaNum.compare(game.generator.total, game.gupgrade6.cost) >= 0) {
         game.generator.total = OmegaNum.divide(game.generator.total, game.gupgrade6.cost);
         game.gupgrade6.level = OmegaNum.add(game.gupgrade6.level, 1);
-        game.gupgrade6.cost = OmegaNum.pow(1e150, OmegaNum.pow(1.2, game.gupgrade6.level));
-        game.generator.limit = OmegaNum.pow(1e300, OmegaNum.pow(1.2, game.gupgrade6.level));
+        game.gupgrade6.cost = OmegaNum.pow(1e150, OmegaNum.pow(1.25, game.gupgrade6.level));
+        game.generator.limit = OmegaNum.pow(1e300, OmegaNum.pow(1.25, game.gupgrade6.level));
+    };
+};
+
+function gupgrade7() {
+    if (OmegaNum.compare(game.points.total, game.gupgrade7.cost) >= 0) {
+        game.gupgrade7.level = OmegaNum.add(game.gupgrade7.level, 1);
+        game.gupgrade7.cost = OmegaNum.pow(new OmegaNum("1e1500"), OmegaNum.pow(1.08, game.gupgrade7.level));
+        game.gupgrade7.pow = OmegaNum.times(0.025, game.gupgrade7.level).add(1);
     };
 };
 

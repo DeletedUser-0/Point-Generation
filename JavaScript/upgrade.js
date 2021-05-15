@@ -61,7 +61,7 @@ function upgrade4() {
 };
 
 /* 
-game.points.total = new OmegaNum("1e16")const OmegaNum = require("omega_num.js/OmegaNum");
+game.points.total = new OmegaNum("1e16");
 
 
 game.Ppoints.total = new OmegaNum("any value you want")
@@ -95,6 +95,9 @@ function upgrade7() {
                 game.PrestigeUpgrade4.cost = OmegaNum.pow(game.PrestigeUpgrade4.cost, 1.075);
             }
             if (OmegaNum.cmp(game.upgrade1.increase, 7.777) >= 0) {
+                game.PrestigeUpgrade4.cost = OmegaNum.pow(game.PrestigeUpgrade4.cost, 2);
+            }
+            if (OmegaNum.cmp(game.generator.limit, new OmegaNum("ee4")) >= 0) {
                 game.PrestigeUpgrade4.cost = OmegaNum.pow(game.PrestigeUpgrade4.cost, 2);
             }
         }

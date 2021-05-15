@@ -100,7 +100,7 @@ class Game {
         };
 
         this.settings = {
-            showPerTick: "true",
+            showPerTick: true,
         };
 
         this.ip = {
@@ -250,11 +250,7 @@ function openPage(pageName, elmnt, color) {
 
 function ui() {
     document.getElementById("points").innerHTML = `You have ${notate(game.points.total)} points.`;
-    if (game.settings.showPerTick === "true") {
-        document.getElementById("PPS").innerHTML = `You are earning ${notate(OmegaNum.times(game.points.perTick, 50))} points per second.`;
-    } else {
-        document.getElementById("PPS").style.display = "none";
-    }
+    document.querySelector("#PPS").innerHTML = `You are earning ${notate(OmegaNum.times(game.points.perTick, 50))} points per second.`;
     if (OmegaNum.compare(game.PrestigeUpgrade4.level, 0) == -1) {
         document.getElementById("increase1").innerHTML = `Receive 10% more points.`
     } else if ((OmegaNum.compare(game.upgrade1.increase2, 1.1) >= 0) && OmegaNum.compare(game.upgrade1.increase2, 2) == -1) {
@@ -327,11 +323,10 @@ function ui() {
         document.getElementById("gup5").innerHTML = `3rd Prestige Points Upgrade is stronger. <br> <br> Cost: ${notate(game.gupgrade5.cost)} Points.`;
         document.getElementById("gup6").innerHTML = `Generator's points limit increases. <br> Limit: ${notate(game.generator.limit)} -> ${notate(OmegaNum.pow(game.generator.limit, 1.25))}<br> <br> Cost: ${notate(game.gupgrade6.cost)} GP.`;
         document.getElementById("gup7").innerHTML = `Multiplier increases even more. <br> Effect: x<sup>${notate(game.gupgrade7.pow)}</sup> -> x<sup>${notate(OmegaNum.times(game.gupgrade7.pow, 1.02))}</sup><br> <br> Cost: ${notate(game.gupgrade7.cost)} Points.`;
-
-
     document.getElementById("time").innerHTML = `Total time played: ${(game.time).toFixed(0)} seconds.`;
     document.getElementById("total").innerHTML = `Total points income: ${notate(OmegaNum.times(game.PrestigeUpgrade1.effectiveness, game.PrestigeUpgrade2.effectiveness).times(game.PrestigeUpgrade3.effectiveness).times(game.PrestigeUpgrade4.effectiveness).times(game.generator.translate))}x`;
-    document.getElementById("max").innerHTML = `Maximum points reached: ${notate(game.points.max)}`
+    document.getElementById("max").innerHTML = `Maximum points reached: ${notate(game.points.max)}`;
+    document.querySelector(".show").innerHTML = (game.settings.showPerTick ? 'Hide' : 'Show');
 };
 
 var mainGameLoop = window.setInterval(function () {

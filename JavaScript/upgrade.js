@@ -91,14 +91,8 @@ function upgrade7() {
             game.PrestigeUpgrade4.level = OmegaNum.add(game.PrestigeUpgrade4.level, 1);
             game.PrestigeUpgrade4.cost = OmegaNum.pow(game.PrestigeUpgrade4.cost, 1.2).times(3).pow(1.04, game.PrestigeUpgrade1.cost);
             game.upgrade1.increase2 = OmegaNum.pow(game.upgrade1.increase2, 1.15);
-            if (OmegaNum.cmp(game.upgrade1.increase2, 1.25) >= 0) {
+            if (OmegaNum.cmp(game.upgrade1.increase2, 1.5) >= 0) {
                 game.PrestigeUpgrade4.cost = OmegaNum.pow(game.PrestigeUpgrade4.cost, 1.075);
-            }
-            if (OmegaNum.cmp(game.upgrade1.increase, 7.777) >= 0) {
-                game.PrestigeUpgrade4.cost = OmegaNum.pow(game.PrestigeUpgrade4.cost, 2);
-            }
-            if (OmegaNum.cmp(game.generator.limit, new OmegaNum("ee4")) >= 0) {
-                game.PrestigeUpgrade4.cost = OmegaNum.pow(game.PrestigeUpgrade4.cost, 2);
             }
         }
     };

@@ -177,14 +177,13 @@ window.addEventListener('keyup', function(e) {
 }})
 
 function Save() {
-    saveData = game;
-    localStorage.saveData = JSON.stringify(saveData);
+    localStorage.game = JSON.stringify(game);
 };
 
 function Load() {
-    game = new Game(JSON.parse(localStorage.saveData));
+    game = new Game(JSON.parse(localStorage.game));
     console.log("Save loaded");
-    return saveData.obj || "default";
+    return game.obj || "default";
 };
 
 var mainGameLoop = window.setInterval(function() {

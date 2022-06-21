@@ -126,7 +126,6 @@ function addPoints() {
 
 function addPPoints() {
     if (OmegaNum.compare(game.points.total, 1e16) >= 0) {
-        game.Ppoints.total = new OmegaNum("1");
         game.Ppoints.total = OmegaNum.add(game.Ppoints.earn, game.Ppoints.total);
         game.points.total = 0;
         game.points.perTick = OmegaNum.times(game.PrestigeUpgrade1.effectiveness, 0.02).times(game.PrestigeUpgrade2.effectiveness).times(game.PrestigeUpgrade3.effectiveness).times(game.PrestigeUpgrade4.effectiveness);
@@ -139,7 +138,7 @@ function addPPoints() {
         game.Ppoints.time = 0;
         game.upgrade1.increase = 1.1;
     } else {
-        alert("You can't prestige now!");
+        alert("You can't prestige yet!");
     };
 };
 

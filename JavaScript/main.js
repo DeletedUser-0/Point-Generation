@@ -21,6 +21,11 @@ class Game {
             level: data?.upgrade2?.level || 0,
         };
 
+        this.upgrade3 = {
+            cost: data?.upgrade3?.cost || 1e50,
+            level: data?.upgrade3?.level || 0,
+        };
+
         this.Ppoints = {
             total: data?.Ppoints?.total || 0,
             earn: data?.Ppoints?.earn || 0,
@@ -271,6 +276,7 @@ function ui() {
     }
 
     document.getElementById("upgrade2").innerHTML = `Cost: ${notate(game.upgrade2.cost)} (${notate(OmegaNum.divide(game.upgrade2.cost, OmegaNum.times(game.points.perTick, 50)))}s) <br> Level: ${game.upgrade2.level}`;
+    document.getElementById("upgrade10").innerHTML = `Cost: ${notate(game.upgrade3.cost)} (${notate(OmegaNum.divide(game.upgrade3.cost, OmegaNum.times(game.points.perTick, 50)))}s) <br> Level: ${game.upgrade3.level}`;
     if ((OmegaNum.compare(game.Ppoints.reset, 0) > 0) || (OmegaNum.compare(game.points.total, 1e16) >= 0)) {
         document.getElementById("Ppoints").innerHTML = `You have <strong>${notate(game.Ppoints.total)}</strong> Prestige Points.`;
     } else {
@@ -369,6 +375,8 @@ function ResetProgress() {
         game.upgrade1.increase2 = 1.1;
         game.upgrade2.cost = 100;
         game.upgrade2.level = 0;
+        game.upgrade3.cost = 1e50;
+        game.upgrade3.level = 0;
         game.Ppoints.total = 0;
         game.Ppoints.earn = 0;
         game.Ppoints.reset = 0;

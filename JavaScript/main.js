@@ -278,7 +278,7 @@ function ui() {
     }
 
     document.getElementById("upgrade2").innerHTML = `Cost: ${notate(game.upgrade2.cost)} (${notate(OmegaNum.divide(game.upgrade2.cost, OmegaNum.times(game.points.perTick, 50)))}s) <br> Level: ${game.upgrade2.level}`;
-    document.getElementById("upgrade10").innerHTML = `Cost: ${notate(game.upgrade3.cost)} <br> Level: ${game.upgrade3.level}`;
+    document.getElementById("upgrade10").innerHTML = `Cost: ${notate(game.upgrade3.cost)} <br> Level: ${game.upgrade3.level} -> x<sup>${notate(OmegaNum.pow(0.975, game.upgrade3.level))}</sup>`;
     if ((OmegaNum.compare(game.Ppoints.reset, 0) > 0) || (OmegaNum.compare(game.points.total, 1e16) >= 0)) {
         document.getElementById("Ppoints").innerHTML = `You have <strong>${notate(game.Ppoints.total)}</strong> Prestige Points.`;
     } else {
@@ -333,7 +333,7 @@ function ui() {
     document.getElementById("time").innerHTML = `Total time played: ${(game.time).toFixed(0)} seconds.`;
     document.getElementById("total").innerHTML = `Total points income: ${notate(OmegaNum.times(game.PrestigeUpgrade1.effectiveness, game.PrestigeUpgrade2.effectiveness).times(game.PrestigeUpgrade3.effectiveness).times(game.PrestigeUpgrade4.effectiveness).times(game.generator.translate))}x`;
     document.getElementById("max").innerHTML = `Maximum points reached: ${notate(game.points.max)}`;
-    document.querySelector(".show").innerHTML = (game.settings.showPerTick ? 'Hide' : 'Show');
+    document.querySelector(".show").innerHTML = game.settings.showPerTick ? 'Total points per second <br> <span style="font-size: 150%">Hide</span>' : 'Total points per second<br> <span style="font-size: 150%">Show</span>';
 };
 
 var mainGameLoop = window.setInterval(function () {

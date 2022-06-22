@@ -198,6 +198,10 @@ var mainGameLoop = window.setInterval(function() {
 }, 1);
 
 var mainGameLoop = window.setInterval(function() {
+    Save();
+}, 0);
+
+var mainGameLoop = window.setInterval(function() {
     addPoints();
 }, 20);
 

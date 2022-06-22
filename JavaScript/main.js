@@ -138,6 +138,8 @@ function addPPoints() {
         game.upgrade1.level = new OmegaNum("0");
         game.upgrade2.cost = new OmegaNum("100");
         game.upgrade2.level = new OmegaNum("0");
+        game.upgrade3.cost = new OmegaNum("1e50");
+        game.upgrade3.level = new OmegaNum("0");
         game.points.upgradebonus = new OmegaNum("1");
         game.Ppoints.reset += 1;
         game.Ppoints.time = 0;
@@ -193,7 +195,7 @@ function Load() {
 
 var mainGameLoop = window.setInterval(function() {
     ui();
-}, 1);
+}, 1);https://www.youtube.com/watch?v=8utpbbdj0LQ
 
 var mainGameLoop = window.setInterval(function() {
     addPoints();
@@ -375,7 +377,7 @@ function ResetProgress() {
         game.upgrade1.increase2 = 1.1;
         game.upgrade2.cost = 100;
         game.upgrade2.level = 0;
-        game.upgrade3.cost = 1e50;
+        game.upgrade3.cost = 100;
         game.upgrade3.level = 0;
         game.Ppoints.total = 0;
         game.Ppoints.earn = 0;

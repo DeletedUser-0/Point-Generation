@@ -195,7 +195,7 @@ function Load() {
 
 var mainGameLoop = window.setInterval(function() {
     ui();
-}, 1);https://www.youtube.com/watch?v=8utpbbdj0LQ
+}, 1);
 
 var mainGameLoop = window.setInterval(function() {
     addPoints();

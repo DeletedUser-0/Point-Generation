@@ -332,12 +332,19 @@ function ui() {
         } else {
         document.getElementById("upgrade9").innerHTML = `??? <br> <br> Unlocked at 10.000 Prestige Points and viewable at 1.000 Prestige Points.`;
     }
-
-    if (OmegaNum.cmp(game.generator.multiplier, 1.004472844) >= 0) {
-        document.getElementById("generatornumber").innerHTML = `You have <strong style="font-size: 125%;">${notate(game.generator.total)}</strong> generator points, translating to <strong style="font-size: 125%;">${notate(game.generator.translate)} </strong>times more points. <br> <br style="font-size: 75%"> You are earning ${notate(OmegaNum.pow(game.generator.multiplier, 50))} times more generator points per second. <p style="font-size: 75%;" color="grey"> ${OmegaNum.div(OmegaNum.log10(OmegaNum.div(game.generator.limit, game.generator.total)), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))).toFixed(1)} seconds until the limit (${(OmegaNum.div(OmegaNum.log10(game.generator.total), OmegaNum.log10(game.generator.limit)).times(100)).toFixed(2)}%). </p>`
+    if (OmegaNum.cmp(game.generator.total, new OmegaNum("1e1000")) >= 0) {
+        if (OmegaNum.cmp(game.generator.multiplier, 1.004472844) >= 0) {
+            document.getElementById("generatornumber").innerHTML = `You have <strong style="font-size: 125%;">${notate(game.generator.total)}</strong> generator points, translating to <strong style="font-size: 125%;">${notate(game.generator.translate)} </strong>times more points. <br> <br style="font-size: 75%"> You are earning ${notate(OmegaNum.pow(game.generator.multiplier, 50))} times more generator points per second. <p style="font-size: 75%;" color="grey"> ${OmegaNum.div(OmegaNum.log10(OmegaNum.div(game.generator.limit, game.generator.total)), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))).toFixed(1)} seconds until the limit (${(OmegaNum.div(OmegaNum.log10(game.generator.total), OmegaNum.log10(game.generator.limit)).times(100)).toFixed(2)}%). </p> <p style="font-size: 75%;" color="grey">Softcap: ${notate(OmegaNum.sub(1, OmegaNum.div(new OmegaNum("1000"), OmegaNum.log10(game.generator.total)).pow(2)).times(100))}% slower receivement</p> <br>`
+        } else {
+            document.getElementById("generatornumber").innerHTML = `You have <strong style="font-size: 125%;">${notate(OmegaNum.sub(1, OmegaNum.div(new OmegaNum("1000"), OmegaNum.log10(game.generator.total)).pow(2)).times(100))}% slower receivement</p> <br>`
+        };    
     } else {
-        document.getElementById("generatornumber").innerHTML = `You have <strong style="font-size: 125%;">${notate(game.generator.total)}</strong> generator points, translating to <strong style="font-size: 125%;">${notate(game.generator.translate)} </strong>times more points. <br> <br style="font-size: 75%"> You are earning ${notate(OmegaNum.times((OmegaNum.pow(game.generator.multiplier, 50)), 100).sub(100))}% more generator points per second. <p style="font-size: 75%;" color="grey"> ${OmegaNum.div(OmegaNum.log10(OmegaNum.div(game.generator.limit, game.generator.total)), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))).toFixed(1)} seconds until the limit (${(OmegaNum.div(OmegaNum.log10(game.generator.total), OmegaNum.log10(game.generator.limit)).times(100)).toFixed(2)}%). </p>`
-    }
+        if (OmegaNum.cmp(game.generator.multiplier, 1.004472844) >= 0) {
+            document.getElementById("generatornumber").innerHTML = `You have <strong style="font-size: 125%;">${notate(game.generator.total)}</strong> generator points, translating to <strong style="font-size: 125%;">${notate(game.generator.translate)} </strong>times more points. <br> <br style="font-size: 75%"> You are earning ${notate(OmegaNum.pow(game.generator.multiplier, 50))} times more generator points per second. <p style="font-size: 75%;" color="grey"> ${OmegaNum.div(OmegaNum.log10(OmegaNum.div(game.generator.limit, game.generator.total)), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))).toFixed(1)} seconds until the limit (${(OmegaNum.div(OmegaNum.log10(game.generator.total), OmegaNum.log10(game.generator.limit)).times(100)).toFixed(2)}%). </p>`
+        } else {
+            document.getElementById("generatornumber").innerHTML = `You have <strong style="font-size: 125%;">${notate(game.generator.total)}</strong> generator points, translating to <strong style="font-size: 125%;">${notate(game.generator.translate)} </strong>times more points. <br> <br style="font-size: 75%"> You are earning ${notate(OmegaNum.times((OmegaNum.pow(game.generator.multiplier, 50)), 100).sub(100))}% more generator points per second. <p style="font-size: 75%;" color="grey"> ${OmegaNum.div(OmegaNum.log10(OmegaNum.div(game.generator.limit, game.generator.total)), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))).toFixed(1)} seconds until the limit (${(OmegaNum.div(OmegaNum.log10(game.generator.total), OmegaNum.log10(game.generator.limit)).times(100)).toFixed(2)}%). </p>`
+        };    
+    };
     document.getElementById("gup1").innerHTML = `Increase generator points receivement. <br> <br> Cost: ${notate(game.gupgrade1.cost)} GP (${notate(OmegaNum.divide(OmegaNum.log10(game.gupgrade1.cost), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))))}s).`
     document.getElementById("gup2").innerHTML = `Improves generator bonus formula. <br> Effect: x<sup>${notate(game.generator.exponent)}</sup> -> x<sup>${notate(OmegaNum.times(game.generator.exponent, 1.025))}<br> <br>Cost: ${notate(game.gupgrade2.cost)} GP (${notate(OmegaNum.divide(OmegaNum.log10(game.gupgrade2.cost), OmegaNum.log10(OmegaNum.pow(game.generator.multiplier, 50))))}).`;
     document.getElementById("gup4").innerHTML = `Point Generation is better based on your second points upgrade. <br> <br> Cost: ${notate(game.gupgrade4.cost)} Points.`;
@@ -357,11 +364,15 @@ var mainGameLoop = window.setInterval(function () {
 function time() {
     game.time = OmegaNum.add(0.02, game.time);
     if (OmegaNum.compare(game.gupgrade4.level, 1) >= 0) {
-        game.generator.multiplier = (OmegaNum.pow(40, OmegaNum.div(game.upgrade2.level, 16000000).div(40)).pow(Math.pow(game.gupgrade1.level, 2.2))).pow(OmegaNum.pow(game.gupgrade4.level, 0.3).pow(game.gupgrade7.pow));
+        if (OmegaNum.cmp(game.generator.total, new OmegaNum("1e1000")) >= 0) {
+            game.generator.multiplier = OmegaNum.pow((OmegaNum.pow(40, OmegaNum.div(game.upgrade2.level, 16000000).div(40)).pow(Math.pow(game.gupgrade1.level, 2.2))).pow(OmegaNum.pow(game.gupgrade4.level, 0.3).pow(game.gupgrade7.pow)), OmegaNum.div(new OmegaNum("1000"), OmegaNum.log10(game.generator.total)).pow(2));
+        } else {
+            game.generator.multiplier = (OmegaNum.pow(40, OmegaNum.div(game.upgrade2.level, 16000000).div(40)).pow(Math.pow(game.gupgrade1.level, 2.2))).pow(OmegaNum.pow(game.gupgrade4.level, 0.3).pow(game.gupgrade7.pow));
+        };
     } else {
         game.generator.multiplier = OmegaNum.pow(1.06, game.gupgrade1.level).times(0.0002).add(1).pow(game.gupgrade7.pow);
-    }
-}
+    };
+};
 
 var mainGameLoop = window.setInterval(function () {
     time();

@@ -1,3 +1,3 @@
 # Point Generation
 This page is under construction.
-Version 0.5.7 Beta.
+Version 0.6 Beta.
